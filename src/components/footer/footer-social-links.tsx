@@ -35,7 +35,7 @@ const SocialLinks: FC = () => {
 
       <IconButton 
         component="a" 
-        href="https://wa.me/918048264492" 
+        href="https://wa.me/918401303078" 
         target="_blank"
         rel="noopener noreferrer"
         size="small"

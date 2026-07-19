@@ -14,6 +14,7 @@ import { SEO } from '@/components/seo/SEO'
 import { GlobalStructuredData } from '@/components/seo/structured-data'
 import { NextPageWithLayout } from '@/interfaces/layout'
 import { TopProgressBar } from '@/components/common/top-progress-bar'
+import { Toaster } from 'react-hot-toast'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -33,13 +34,14 @@ const App: FC<AppPropsWithLayout> = (props: AppPropsWithLayout) => {
     <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <link rel="icon" type="image/png" href="/Sea Duck-logo.png" />
+        <link rel="icon" type="image/png" href="/logo.png" />
       </Head>
       <SEO />
       <GlobalStructuredData />
       <MUIProvider>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
+        <Toaster position="top-right" />
         <TopProgressBar />
         <AuthProvider>
           {getLayout(<Component {...pageProps} />)}

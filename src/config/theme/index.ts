@@ -23,7 +23,7 @@ const createTheme = (darkMode?: boolean): Theme => {
     typography,
     shadows,
     shape: {
-      borderRadius: 8,
+      borderRadius: 0,
     },
     components: {
       MuiCssBaseline: {
@@ -34,7 +34,7 @@ const createTheme = (darkMode?: boolean): Theme => {
             textRendering: 'optimizeLegibility',
           },
           '::selection': {
-            backgroundColor: 'rgba(30, 95, 166, 0.18)',
+            backgroundColor: 'rgba(14, 165, 233, 0.18)',
           },
           a: {
             color: 'inherit',
@@ -44,7 +44,7 @@ const createTheme = (darkMode?: boolean): Theme => {
       MuiButton: {
         styleOverrides: {
           root: {
-            borderRadius: 8,
+            borderRadius: 0,
             boxShadow: 'none',
             fontWeight: 700,
             letterSpacing: 0,
@@ -71,7 +71,7 @@ const createTheme = (darkMode?: boolean): Theme => {
       MuiCard: {
         styleOverrides: {
           root: {
-            borderRadius: 8,
+            borderRadius: 0,
             border: '1px solid #DDE5EF',
             boxShadow: '0 16px 40px rgba(10,31,64,0.08)',
           },
@@ -80,14 +80,14 @@ const createTheme = (darkMode?: boolean): Theme => {
       MuiPaper: {
         styleOverrides: {
           rounded: {
-            borderRadius: 8,
+            borderRadius: 0,
           },
         },
       },
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            borderRadius: 8,
+            borderRadius: 0,
             backgroundColor: '#FFFFFF',
           },
         },
@@ -95,7 +95,7 @@ const createTheme = (darkMode?: boolean): Theme => {
       MuiChip: {
         styleOverrides: {
           root: {
-            borderRadius: 8,
+            borderRadius: 0,
             fontWeight: 700,
           },
         },
@@ -104,7 +104,8 @@ const createTheme = (darkMode?: boolean): Theme => {
   })
 }
 
-const theme = createTheme(false)
+export const lightTheme = createTheme(false)
+export const darkTheme = createTheme(true)
 
-export { paletteBase, paletteLight, paletteDark, typography, shadows }
-export default theme
+export { createTheme, paletteBase, paletteLight, paletteDark, typography, shadows }
+export default darkTheme

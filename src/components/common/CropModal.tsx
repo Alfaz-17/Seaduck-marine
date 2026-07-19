@@ -119,7 +119,7 @@ const CropModal: React.FC<CropModalProps> = ({
                 step={0.1}
                 aria-labelledby="Zoom"
                 onChange={(e) => setZoom(Number(e.target.value))}
-                className="flex-grow h-1 bg-slate-850 rounded-full appearance-none accent-[#1E5FA6] cursor-pointer"
+                className="flex-grow h-1 bg-slate-850 rounded-full appearance-none accent-primary-light cursor-pointer"
               />
             </div>
             

@@ -25,6 +25,7 @@ const Header: FC = () => {
   const [searchResults, setSearchResults] = useState<any[]>([])
   const [isSearching, setIsSearching] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [categories, setCategories] = useState<any[]>([])
   const searchContainerRef = useRef<HTMLDivElement>(null)
 
   const { breakpoints } = useTheme()
@@ -42,6 +43,16 @@ const Header: FC = () => {
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Fetch dynamic categories for products dropdown
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setCategories(data)
+      })
+      .catch(err => console.error("Error fetching categories:", err))
   }, [])
 
   // Fetch search results automatically when typing
@@ -84,25 +95,15 @@ const Header: FC = () => {
     { 
       label: 'About Us', 
       path: '/about',
-      children: [
-        { label: 'Who We Are', path: '/about#who-we-are' },
-        { label: 'Our Story', path: '/about#our-story' },
-        { label: 'The Team', path: '/about#the-team' },
-        { label: 'Why Choose Us', path: '/about#why-choose' },
-      ]
     },
-    { label: 'Services', path: '/services' },
     { 
       label: 'Products', 
       path: '/products',
-      children: [
-        { label: 'Navigation', path: '/products?category=Navigation' },
-        { label: 'Automation', path: '/products?category=Automation' },
-        { label: 'Communication', path: '/products?category=Communication' },
-      ]
+      children: categories.length > 0 
+        ? categories.map(cat => ({ label: cat.name, path: `/products?category=${cat._id}` }))
+        : [{ label: 'All Products', path: '/products' }]
     },
-    { label: 'About Us', path: '/about' },
-    { label: 'Gallery', path: '/gallery' },
+    { label: 'New Arrivals', path: '/new-arrivals' },
     { label: 'Contact Us', path: '/contact' },
   ]
 
@@ -281,7 +282,7 @@ const Header: FC = () => {
                 </IconButton>
                 <IconButton 
                   component="a" 
-                  href="https://wa.me/918048264492" 
+                  href="https://wa.me/918401303078" 
                   target="_blank"
                   rel="noopener noreferrer"
                   size="small"

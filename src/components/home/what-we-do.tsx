@@ -5,31 +5,34 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import InventoryIcon from '@mui/icons-material/Inventory'
 import BuildIcon from '@mui/icons-material/Build'
-import SupportAgentIcon from '@mui/icons-material/SupportAgent'
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing'
+import LightbulbIcon from '@mui/icons-material/Lightbulb'
 import Image from 'next/image'
 
 const defaultServices = [
   {
-    title: 'Supply of Marine Equipment & Spares',
-    desc: 'We supply high-grade marine equipment — including Marine Radars, Engine Automation modules, Lubricating Oils, and Ship spares (valves, pumps, impellers) — sourced directly from ship-recycling hubs like Alang.',
-    icon: <InventoryIcon sx={{ fontSize: 40, color: 'primary.light' }} />
+    title: 'SUPPLY',
+    desc: 'Wide range of marine spares, equipment & marine lubricants sourced from key ship recycling corridors like Alang.',
   },
   {
-    title: 'Inspection & Technical Guidance',
-    desc: 'Our team in Bhavnagar inspects and tests every reconditioned system (such as Nor Sau automation panels and Furuno radars) to guarantee operational safety before dispatch.',
-    icon: <BuildIcon sx={{ fontSize: 40, color: 'primary.light' }} />
+    title: 'SERVICE',
+    desc: 'Expert repair, overhaul, installation, maintenance & technical support for all shipboard systems.',
   },
   {
-    title: 'Rapid Port Sourcing & Supply',
-    desc: "We prioritize fast turnaround. With close access to Alang and Gujarat ports, we fulfill urgent B2B inquiries for marine lubricants (Shell/Castrol) and replacement spares to keep your vessels running.",
-    icon: <SupportAgentIcon sx={{ fontSize: 40, color: 'primary.light' }} />
+    title: 'SPARES',
+    desc: 'Genuine & OEM quality replacement spares (valves, pumps, compressor parts, etc.) for all major international brands.',
+  },
+  {
+    title: 'SOLUTIONS',
+    desc: 'Smart, efficient, and custom-tailored marine services to keep your vessels running smoothly worldwide.',
   }
 ]
 
 const getIcon = (idx: number) => {
   if (idx === 0) return <InventoryIcon sx={{ fontSize: 40, color: 'primary.light' }} />;
   if (idx === 1) return <BuildIcon sx={{ fontSize: 40, color: 'primary.light' }} />;
-  return <SupportAgentIcon sx={{ fontSize: 40, color: 'primary.light' }} />;
+  if (idx === 2) return <PrecisionManufacturingIcon sx={{ fontSize: 40, color: 'primary.light' }} />;
+  return <LightbulbIcon sx={{ fontSize: 40, color: 'primary.light' }} />;
 }
 
 interface WhatWeDoProps {

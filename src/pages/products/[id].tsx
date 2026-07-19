@@ -25,7 +25,7 @@ import { MainLayout } from '@/components/layout'
 import PageHero from '@/components/page-hero'
 import ProductCard from '@/components/product-card'
 import { InquiryModal } from '@/components/common/inquiry-modal'
-import connectToDatabase from '@/lib/db'
+import { connectToDatabase, disconnectFromDatabase } from '@/lib/db'
 import { Product } from '@/lib/models'
 
 interface ProductDetailPageProps {
@@ -374,6 +374,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   } catch (error) {
     console.error("Error in getStaticProps for product:", error)
     return { notFound: true }
+  } finally {
+    await disconnectFromDatabase()
   }
 }
 

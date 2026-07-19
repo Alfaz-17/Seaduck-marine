@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
+import { alpha } from '@mui/material/styles'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SEO } from '@/components/seo/SEO'
@@ -19,8 +20,9 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import CloseIcon from '@mui/icons-material/Close'
 import Drawer from '@mui/material/Drawer'
 import ExploreIcon from '@mui/icons-material/Explore'
-import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna'
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing'
+import SettingsIcon from '@mui/icons-material/Settings'
+import AnchorIcon from '@mui/icons-material/Anchor'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
@@ -31,7 +33,7 @@ import { MainLayout } from '@/components/layout'
 import PageHero from '@/components/page-hero'
 import ProductCard from '@/components/product-card'
 import { CtaBand } from '@/components/home'
-import connectToDatabase from '@/lib/db'
+import { connectToDatabase, disconnectFromDatabase } from '@/lib/db'
 import { Product, Category, Brand } from '@/lib/models'
 
 interface ProductsPageProps {
@@ -40,114 +42,58 @@ interface ProductsPageProps {
   brands: any[]
 }
 
-const MAIN_CATEGORIES = [
-  { name: 'Navigation', icon: <ExploreIcon /> },
-  { name: 'Communication', icon: <SettingsInputAntennaIcon /> },
-  { name: 'Automation', icon: <PrecisionManufacturingIcon /> },
-]
-
 const PRODUCTS_PER_PAGE = 8
 
 // ─── Sidebar Filter Content (shared between desktop sidebar and mobile drawer) ───
 interface FilterContentProps {
   categories: any[]
-  selectedMainCategory: string | null
-  selectedSubCategory: string | null
-  onMainCategoryClick: (name: string) => void
-  onSubCategoryClick: (id: string | null) => void
+  selectedCategory: string | null
+  onCategoryClick: (id: string | null) => void
 }
 
 const FilterContent: React.FC<FilterContentProps> = ({
-  categories, selectedMainCategory, selectedSubCategory,
-  onMainCategoryClick, onSubCategoryClick,
+  categories, selectedCategory, onCategoryClick,
 }) => (
   <Box>
     <Typography sx={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1.5, color: 'text.disabled', mb: 2 }}>
       Categories
     </Typography>
-    {MAIN_CATEGORIES.map((cat) => {
-      const isActive = selectedMainCategory === cat.name
-      const catSubCategories = categories.filter(c => (c.mainCategory || 'Navigation') === cat.name)
-      
+    <Box
+      onClick={() => onCategoryClick(null)}
+      sx={{
+        px: 2, py: 1.5, mb: 1, borderRadius: 1, cursor: 'pointer',
+        fontSize: '0.95rem',
+        color: selectedCategory === null ? 'primary.main' : 'text.primary',
+        fontWeight: selectedCategory === null ? 700 : 500,
+        bgcolor: (theme) => selectedCategory === null ? alpha(theme.palette.primary.light, 0.1) : 'transparent',
+        border: '1px solid',
+        borderColor: (theme) => selectedCategory === null ? alpha(theme.palette.primary.light, 0.25) : 'transparent',
+        transition: 'all 0.2s',
+        '&:hover': { bgcolor: (theme) => selectedCategory === null ? alpha(theme.palette.primary.light, 0.1) : 'rgba(10,25,47,0.04)' },
+      }}
+    >
+      All Products
+    </Box>
+    {categories.map((cat) => {
+      const isActive = selectedCategory === cat._id
       return (
-        <Accordion
-          key={cat.name}
-          expanded={isActive}
-          onChange={() => onMainCategoryClick(cat.name)}
-          disableGutters
-          elevation={0}
+        <Box
+          key={cat._id}
+          onClick={() => onCategoryClick(cat._id)}
           sx={{
-            bgcolor: 'transparent',
-            '&:before': { display: 'none' },
-            mb: 0.5,
+            px: 2, py: 1.5, mb: 0.5, borderRadius: 1, cursor: 'pointer',
+            fontSize: '0.95rem',
+            color: isActive ? 'primary.main' : 'text.secondary',
+            fontWeight: isActive ? 700 : 500,
+            bgcolor: (theme) => isActive ? alpha(theme.palette.primary.light, 0.1) : 'transparent',
+            border: '1px solid',
+            borderColor: (theme) => isActive ? alpha(theme.palette.primary.light, 0.25) : 'transparent',
+            transition: 'all 0.15s',
+            '&:hover': { bgcolor: (theme) => isActive ? alpha(theme.palette.primary.light, 0.1) : 'rgba(10,25,47,0.04)', color: 'text.primary' },
           }}
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{ fontSize: 20, color: isActive ? 'primary.main' : 'text.secondary' }} />}
-            sx={{
-              minHeight: '44px !important',
-              px: 2,
-              py: 0,
-              borderRadius: 1,
-              bgcolor: isActive ? '#1E5FA61A' : 'transparent',
-              color: isActive ? 'primary.main' : 'text.primary',
-              fontWeight: isActive ? 700 : 500,
-              fontSize: '0.95rem',
-              border: isActive ? '1px solid #1E5FA640' : '1px solid transparent',
-              transition: 'all 0.2s',
-              '&:hover': {
-                bgcolor: isActive ? '#1E5FA61A' : 'rgba(10,25,47,0.04)',
-              },
-              '& .MuiAccordionSummary-content': {
-                my: '0 !important',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1.5,
-              },
-              '& .MuiSvgIcon-root': {
-                fontSize: 20,
-                color: isActive ? 'primary.main' : 'text.secondary',
-              }
-            }}
-          >
-            {cat.icon}
-            {cat.name}
-          </AccordionSummary>
-          
-          <AccordionDetails sx={{ p: 0, pt: 1, pl: 2, pb: 1 }}>
-            <Box
-              onClick={() => onSubCategoryClick(null)}
-              sx={{
-                px: 2, py: 1, mb: 0.5, borderRadius: 1, cursor: 'pointer',
-                fontSize: '0.85rem',
-                color: selectedSubCategory === null ? 'primary.main' : 'text.secondary',
-                fontWeight: selectedSubCategory === null ? 700 : 400,
-                bgcolor: selectedSubCategory === null ? '#1E5FA60F' : 'transparent',
-                transition: 'all 0.15s',
-                '&:hover': { bgcolor: 'rgba(10,25,47,0.04)', color: 'text.primary' },
-              }}
-            >
-              All {cat.name}
-            </Box>
-            {catSubCategories.map((sub) => (
-              <Box
-                key={sub._id}
-                onClick={() => onSubCategoryClick(sub._id)}
-                sx={{
-                  px: 2, py: 1, mb: 0.5, borderRadius: 1, cursor: 'pointer',
-                  fontSize: '0.85rem',
-                  color: selectedSubCategory === sub._id ? 'primary.main' : 'text.secondary',
-                  fontWeight: selectedSubCategory === sub._id ? 700 : 400,
-                  bgcolor: selectedSubCategory === sub._id ? '#1E5FA60F' : 'transparent',
-                  transition: 'all 0.15s',
-                  '&:hover': { bgcolor: 'rgba(10,25,47,0.04)', color: 'text.primary' },
-                }}
-              >
-                {sub.name}
-              </Box>
-            ))}
-          </AccordionDetails>
-        </Accordion>
+          {cat.name}
+        </Box>
       )
     })}
   </Box>
@@ -158,8 +104,7 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
   const router = useRouter()
   const { category, search } = router.query
 
-  const [selectedMainCategory, setSelectedMainCategory] = useState<string | null>(null)
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
@@ -167,31 +112,21 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
   // Sync state with URL parameter
   React.useEffect(() => {
     if (category && typeof category === 'string') {
-      setSelectedMainCategory(category)
+      setSelectedCategory(category)
     }
     if (search && typeof search === 'string') {
       setSearchQuery(search)
     }
   }, [category, search])
 
-  const handleMainCategoryClick = (catName: string) => {
-    if (selectedMainCategory === catName) {
-      // Toggle off (close dropdown and clear filter)
-      setSelectedMainCategory(null)
-      setSelectedSubCategory(null)
-      router.push(`/products`, undefined, { shallow: true })
+  const handleCategoryClick = (id: string | null) => {
+    setSelectedCategory(id)
+    setCurrentPage(1)
+    if (id) {
+      router.push(`/products?category=${id}`, undefined, { shallow: true })
     } else {
-      // Toggle on (open dropdown and apply filter)
-      setSelectedMainCategory(catName)
-      setSelectedSubCategory(null)
-      router.push(`/products?category=${catName}`, undefined, { shallow: true })
+      router.push(`/products`, undefined, { shallow: true })
     }
-    setCurrentPage(1)
-  }
-
-  const handleSubCategoryClick = (id: string | null) => {
-    setSelectedSubCategory(id)
-    setCurrentPage(1)
   }
 
   // Filter + sort
@@ -199,32 +134,24 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
     let result = products.filter((product) => {
       let match = true
       
-      // Resolve category names for search and filtering
       const catObj = categories.find(c => c._id === (typeof product.category === 'string' ? product.category : product.category?._id))
-      const mainCatOfProduct = catObj?.mainCategory || 'Navigation'
-      const subCatOfProduct = catObj?.name || ''
+      const catName = catObj?.name || ''
 
-      // 1. Text Search (checks title, main category, and subcategory)
+      // 1. Text Search
       if (searchQuery) {
         const sq = searchQuery.toLowerCase()
         const matchesTitle = product.title?.toLowerCase().includes(sq)
-        const matchesMainCat = mainCatOfProduct.toLowerCase().includes(sq)
-        const matchesSubCat = subCatOfProduct.toLowerCase().includes(sq)
+        const matchesCat = catName.toLowerCase().includes(sq)
         
-        if (!matchesTitle && !matchesMainCat && !matchesSubCat) {
+        if (!matchesTitle && !matchesCat) {
           match = false
         }
       }
 
-      // 2. Main Category Filter
-      if (selectedMainCategory && mainCatOfProduct !== selectedMainCategory) {
-        match = false
-      }
-
-      // 3. Sub Category Filter
-      if (selectedSubCategory) {
+      // 2. Category Filter
+      if (selectedCategory) {
         const categoryId = typeof product.category === 'string' ? product.category : product.category?._id
-        if (categoryId !== selectedSubCategory) {
+        if (categoryId !== selectedCategory) {
           match = false
         }
       }
@@ -233,7 +160,7 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
     })
 
     return result
-  }, [products, categories, selectedMainCategory, selectedSubCategory, searchQuery])
+  }, [products, categories, selectedCategory, searchQuery])
 
   // Pagination
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)
@@ -241,10 +168,6 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
   )
-
-  const activeSubCategories = selectedMainCategory
-    ? categories.filter(c => (c.mainCategory || 'Navigation') === selectedMainCategory)
-    : []
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
@@ -261,16 +184,16 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
         canonicalUrl="/products"
       />
 
-      <PageHero
-        title="Products Catalog"
-        subtitle="High-quality marine navigation, communication, and automation systems."
-        image="/images/marine-radio.jpg"
+      <PageHero 
+        title="Products & Services" 
+        subtitle="Explore our extensive inventory of reconditioned marine equipment and essential spares."
+        image="/images/products_hero_technical.png"
         compact
       />
 
       <Box sx={{ backgroundColor: 'background.default', minHeight: '80vh', position: 'relative' }}>
         {/* Subtle background glow */}
-        <Box sx={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '100vw', height: '500px', background: 'radial-gradient(circle, #1E5FA61A 0%, rgba(245,247,250,0) 70%)', zIndex: 0, pointerEvents: 'none' }} />
+        <Box sx={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '100vw', height: '500px', background: (theme) => `radial-gradient(circle, ${alpha(theme.palette.primary.light, 0.1)} 0%, rgba(245,247,250,0) 70%)`, zIndex: 0, pointerEvents: 'none' }} />
 
         <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1, py: { xs: 2.5, md: 4 } }}>
           <Box sx={{ display: 'flex', gap: { xs: 0, md: 4 } }}>
@@ -293,17 +216,16 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
               }}
             >
               <Box sx={{
-                p: 3, borderRadius: 1, bgcolor: 'common.white',
-                border: '1px solid rgba(10,25,47,0.08)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                p: 3, borderRadius: 1, bgcolor: 'background.paper',
+                border: '1px solid',
+                borderColor: 'divider',
+                boxShadow: 'none',
                 mb: 3
               }}>
                 <FilterContent
                   categories={categories}
-                  selectedMainCategory={selectedMainCategory}
-                  selectedSubCategory={selectedSubCategory}
-                  onMainCategoryClick={handleMainCategoryClick}
-                  onSubCategoryClick={handleSubCategoryClick}
+                  selectedCategory={selectedCategory}
+                  onCategoryClick={handleCategoryClick}
                 />
               </Box>
             </Box>
@@ -324,9 +246,11 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
                   onClick={() => setMobileFilterOpen(true)}
                   sx={{
                     display: { xs: 'flex', md: 'none' },
-                    bgcolor: 'common.white', border: '1px solid rgba(10,25,47,0.1)',
+                    bgcolor: 'background.paper', border: '1px solid',
+                    borderColor: 'divider',
+                    color: 'text.primary',
                     borderRadius: 1, width: { xs: 44, sm: 48 }, height: { xs: 44, sm: 48 },
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                    boxShadow: 'none',
                   }}
                 >
                   <FilterListIcon />
@@ -343,17 +267,21 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
                   sx={{
                     gridColumn: { xs: '2 / 3', sm: '2 / 3', md: '1 / 2' },
                     '& .MuiOutlinedInput-root': {
-                      backgroundColor: 'common.white',
+                      backgroundColor: 'background.paper',
                       borderRadius: 1,
                       color: 'text.primary',
-                      border: '1px solid rgba(10,25,47,0.1)',
+                      border: '1px solid',
+                      borderColor: 'divider',
                       transition: 'all 0.3s',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                      boxShadow: 'none',
                       '& fieldset': { border: 'none' },
-                      '&:hover': { border: '1px solid #1E5FA673' },
+                       '&:hover': { 
+                        border: '1px solid', 
+                        borderColor: (theme) => alpha(theme.palette.primary.light, 0.45),
+                      },
                       '&.Mui-focused': {
                         border: '1px solid', borderColor: 'primary.light',
-                        boxShadow: '0 4px 16px #1E5FA61F',
+                        boxShadow: (theme) => `0 4px 16px ${alpha(theme.palette.primary.light, 0.12)}`,
                       },
                     },
                     '& .MuiOutlinedInput-input': {
@@ -373,19 +301,18 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
               </Box>
 
               {/* Mobile active filters chips */}
-              {selectedMainCategory && (
+              {selectedCategory && (
                 <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1, mb: 2, flexWrap: 'wrap' }}>
                   <Box sx={{
                     display: 'inline-flex', alignItems: 'center', gap: 0.5,
                     px: 2, py: 0.75, borderRadius: 50,
-                    bgcolor: '#1E5FA61A', color: 'primary.main',
+                    bgcolor: (theme) => alpha(theme.palette.primary.light, 0.1), color: 'primary.main',
                     fontSize: '0.8rem', fontWeight: 600,
                   }}>
-                    {selectedMainCategory}
-                    {selectedSubCategory && ` / ${activeSubCategories.find(s => s._id === selectedSubCategory)?.name || ''}`}
+                    {categories.find(c => c._id === selectedCategory)?.name || 'Category'}
                     <CloseIcon
                       sx={{ fontSize: 16, cursor: 'pointer', ml: 0.5 }}
-                      onClick={() => { setSelectedMainCategory(null); setSelectedSubCategory(null); router.push('/products', undefined, { shallow: true }); setCurrentPage(1) }}
+                      onClick={() => { setSelectedCategory(null); router.push('/products', undefined, { shallow: true }); setCurrentPage(1) }}
                     />
                   </Box>
                 </Box>
@@ -409,7 +336,7 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
                   ))}
                 </Grid>
               ) : (
-                <Box sx={{ py: 10, textAlign: 'center', bgcolor: 'common.white', border: '1px dashed rgba(10,25,47,0.15)', borderRadius: 1 }}>
+                <Box sx={{ py: 10, textAlign: 'center', bgcolor: 'background.paper', border: '1px dashed', borderColor: 'divider', borderRadius: 1 }}>
                   <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 500 }}>
                     No products found matching your criteria.
                   </Typography>
@@ -437,17 +364,18 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
                         fontWeight: 600,
                         fontSize: { xs: '0.82rem', md: '0.95rem' },
                         borderRadius: 1,
-                        border: '1px solid rgba(10,25,47,0.08)',
+                        border: '1px solid',
+                        borderColor: 'divider',
                         mx: { xs: 0.1, md: 0.5 },
                         transition: 'all 0.2s',
                         '&.Mui-selected': {
                           bgcolor: 'primary.main',
                           color: 'common.white',
-                          boxShadow: '0 4px 12px #1E5FA64D',
+                          boxShadow: (theme) => `0 4px 12px ${alpha(theme.palette.primary.light, 0.3)}`,
                           '&:hover': { bgcolor: 'primary.dark' },
                         },
                         '&:hover': {
-                          bgcolor: '#1E5FA614',
+                          bgcolor: (theme) => alpha(theme.palette.primary.light, 0.08),
                         }
                       }
                     }}
@@ -482,10 +410,8 @@ const ProductsPage: NextPageWithLayout<ProductsPageProps> = ({ products, categor
         </Box>
         <FilterContent
           categories={categories}
-          selectedMainCategory={selectedMainCategory}
-          selectedSubCategory={selectedSubCategory}
-          onMainCategoryClick={(name) => { handleMainCategoryClick(name) }}
-          onSubCategoryClick={(id) => { handleSubCategoryClick(id); setMobileFilterOpen(false) }}
+          selectedCategory={selectedCategory}
+          onCategoryClick={(id) => { handleCategoryClick(id); setMobileFilterOpen(false) }}
         />
       </Drawer>
 
@@ -526,6 +452,8 @@ export const getStaticProps: GetStaticProps = async () => {
       },
       revalidate: 60,
     }
+  } finally {
+    await disconnectFromDatabase()
   }
 }
 

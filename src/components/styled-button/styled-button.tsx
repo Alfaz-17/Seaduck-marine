@@ -160,10 +160,28 @@ interface Props extends BaseButtonProps {
   sx?: SxProps<Theme>
 }
 
-const StyledButton: FC<Props> = (props: Props) => {
-  const { children, onClick, disableHoverEffect, startIcon, endIcon, sx, ...rest } = props
+const StyledButton: FC<Props> = ({
+  color = 'primary',
+  variant = 'contained',
+  size = 'medium',
+  disableHoverEffect = false,
+  children,
+  onClick,
+  startIcon,
+  endIcon,
+  sx,
+  ...rest
+}) => {
   return (
-    <StyledButtonRoot onClick={onClick} disableHoverEffect={disableHoverEffect} sx={sx} {...rest}>
+    <StyledButtonRoot 
+      color={color} 
+      variant={variant} 
+      size={size} 
+      onClick={onClick} 
+      disableHoverEffect={disableHoverEffect} 
+      sx={sx} 
+      {...rest}
+    >
       {startIcon && (
         <Box component="span" sx={{ display: 'inherit', mr: 1, ml: -0.5 }}>
           {startIcon}
@@ -177,13 +195,6 @@ const StyledButton: FC<Props> = (props: Props) => {
       )}
     </StyledButtonRoot>
   )
-}
-
-StyledButton.defaultProps = {
-  color: 'primary',
-  variant: 'contained',
-  size: 'medium',
-  disableHoverEffect: false,
 }
 
 export default StyledButton

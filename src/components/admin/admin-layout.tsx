@@ -51,8 +51,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       { name: 'Products', href: '/admin/products', icon: Package },
       { name: 'Categories', href: '/admin/categories', icon: Grid3X3 },
       { name: 'Brands', href: '/admin/brands', icon: Award },
-      { name: 'Services', href: '/admin/services', icon: Anchor },
-      { name: 'Gallery', href: '/admin/gallery', icon: Image },
       { name: 'Settings', href: '/admin/settings', icon: SettingsIcon },
     ];
 
@@ -97,7 +95,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="w-full flex items-center justify-between mb-4">
             <Link href="/">
               <a className="flex items-center opacity-90 hover:opacity-100 transition-opacity">
-                <img src="/Sea Duck-logo.png" alt="Sea Duck Marine Service Logo" className="h-10 w-auto object-contain" />
+                <img src="/logo.png" alt="Sea Duck Marine Service Logo" className="h-10 w-auto object-contain" />
                 <span className="ml-3 font-syne font-bold uppercase tracking-tight text-slate-950 text-sm">Sea Duck Console</span>
               </a>
             </Link>
@@ -109,8 +107,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </button>
           </div>
           <div className="w-full flex justify-between items-center px-1">
-             <span className="text-[8px] font-mono text-slate-500 tracking-[0.2em] uppercase">Vessel ID: AM-804</span>
-             <span className="text-[8px] font-mono text-slate-500 tracking-[0.2em] uppercase">Auth: L3</span>
+             <span className="text-[8px] font-mono text-slate-700 tracking-[0.2em] uppercase">Vessel ID: AM-804</span>
+             <span className="text-[8px] font-mono text-slate-700 tracking-[0.2em] uppercase">Auth: L3</span>
           </div>
         </div>
 
@@ -127,7 +125,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 }`}>
                   {active && (
                     <>
-                      <div className="absolute inset-0 bg-[#1E5FA6]/10 border-l-2 border-primary-light rounded-r" />
+                      <div className="absolute inset-0 bg-primary-light/10 border-l-2 border-primary-light rounded-r" />
                       <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary-light/60" />
                       <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary-light/60" />
                     </>
@@ -135,10 +133,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   {!active && (
                      <div className="absolute left-0 w-0.5 h-full bg-slate-200 group-hover:bg-primary-light/30 transition-all" />
                   )}
-                  <Icon className={`w-4 h-4 mr-4 transition-all duration-300 ${active ? 'text-primary-light scale-110' : 'text-slate-500 group-hover:text-primary-light'}`} />
-                  <span className="relative z-10 font-mono tracking-widest">{item.name}</span>
+                  <Icon className={`w-4 h-4 mr-4 transition-all duration-300 ${active ? 'text-primary-light scale-110' : 'text-slate-600 group-hover:text-primary-light'}`} />
+                  <span className="relative z-10 font-mono tracking-widest text-slate-700">{item.name}</span>
                   {active && (
-                     <div className="ml-auto w-1 h-1 bg-primary-light animate-pulse rounded-full shadow-[0_0_8px_#1E5FA6]" />
+                     <div className="ml-auto w-1 h-1 bg-primary-light animate-pulse rounded-full shadow-[0_0_8px_#0A3D91]" />
                   )}
                 </a>
               </Link>
@@ -147,7 +145,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </nav>
 
         <div className="p-6 bg-slate-50 border-t border-slate-200 relative z-10">
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#1E5FA6]/20 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary-light/20 to-transparent" />
           
           <div className="bg-white rounded-sm p-4 mb-4 border border-slate-200 relative group overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 px-2 py-0.5 bg-primary-light/10 border-b border-l border-primary-light/20">
@@ -162,7 +160,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   <p className="text-[10px] font-mono font-black text-slate-950 uppercase tracking-tighter truncate m-0">
                       {user?.name || user?.email || 'Admin'}
                   </p>
-                  <p className="text-[8px] text-primary-light/60 font-mono uppercase tracking-[0.2em] mt-0.5 m-0">Fleet Commander</p>
+                  <p className="text-[8px] text-slate-600 font-mono uppercase tracking-[0.2em] mt-0.5 m-0">Fleet Commander</p>
                 </div>
             </div>
           </div>

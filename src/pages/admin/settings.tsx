@@ -144,7 +144,7 @@ export default function AdminSettingsPage() {
               type="checkbox"
               checked={settings.applyWatermark !== false}
               onChange={(e) => setSettings(prev => ({ ...prev, applyWatermark: e.target.checked }))}
-              className="w-4 h-4 accent-[#1E5FA6]"
+              className="w-4 h-4 accent-primary-light"
             />
           </label>
 
@@ -168,7 +168,7 @@ export default function AdminSettingsPage() {
               type="checkbox"
               checked={Boolean(settings.autoBackgroundRemoval)}
               onChange={(e) => setSettings(prev => ({ ...prev, autoBackgroundRemoval: e.target.checked }))}
-              className="w-4 h-4 accent-[#1E5FA6]"
+              className="w-4 h-4 accent-primary-light"
             />
           </label>
         </div>

@@ -29,7 +29,7 @@ const Footer: FC = () => {
       id="contact"
       component="footer"
       sx={{
-        backgroundColor: '#0a192f',
+        backgroundColor: 'primary.dark',
         position: 'relative',
         overflow: 'hidden',
         color: 'rgba(255,255,255,0.7)',
@@ -42,7 +42,7 @@ const Footer: FC = () => {
           left: 0,
           right: 0,
           height: '4px',
-          background: 'linear-gradient(90deg, #1E5FA6 0%, #4BA3E3 100%)',
+          background: (theme) => `linear-gradient(90deg, ${theme.palette.primary.light} 0%, ${theme.palette.secondary.main} 100%)`,
         }
       }}
     >
@@ -52,7 +52,7 @@ const Footer: FC = () => {
           position: 'absolute',
           inset: 0,
           opacity: 0.15,
-          backgroundImage: 'radial-gradient(#4BA3E3 1px, transparent 1px)',
+          backgroundImage: (theme) => `radial-gradient(${theme.palette.primary.light} 1px, transparent 1px)`,
           backgroundSize: '30px 30px',
           pointerEvents: 'none',
           maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)',
@@ -105,7 +105,7 @@ const Footer: FC = () => {
                 Quick Links
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                {[['Home', '/'], ['About Us', '/about'], ['Products & Services', '/products'], ['Gallery', '/gallery'], ['Contact Us', '/contact']].map(([label, path]) => (
+                {[['Home', '/'], ['About Us', '/about'], ['Products', '/products'], ['New Arrivals', '/new-arrivals'], ['Contact Us', '/contact']].map(([label, path]) => (
                   <Link 
                     key={label}
                     href={path} 
@@ -165,34 +165,38 @@ const Footer: FC = () => {
                   alignItems: 'center', 
                   gap: 1.5,
                   p: 1.5,
-                  borderRadius: 2,
-                  bgcolor: 'rgba(255,255,255,0.05)',
+                  borderRadius: 0,
+                  bgcolor: 'rgba(255,255,255,0.02)',
                   border: '1px solid rgba(255,255,255,0.1)',
+                  borderLeft: '2px solid',
+                  borderLeftColor: 'secondary.main',
                 }}>
-                  <Box sx={{ p: 1, borderRadius: '50%', bgcolor: 'primary.main', display: 'flex' }}>
-                    <PersonIcon sx={{ fontSize: 22, color: 'white' }} />
+                  <Box sx={{ p: 1, bgcolor: 'rgba(255,255,255,0.05)', display: 'flex', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <PersonIcon sx={{ fontSize: 22, color: 'secondary.main' }} />
                   </Box>
                   <Box>
-                    <Typography variant="caption" sx={{ color: 'primary.light', display: 'block', fontWeight: 700, fontSize: '0.7rem', letterSpacing: 0.5 }}>PROPRIETOR</Typography>
-                    <Typography variant="body1" sx={{ color: 'common.white', fontWeight: 600, fontSize: '0.95rem' }}>Mr. Umar</Typography>
+                    <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', fontWeight: 600, fontSize: '0.65rem', letterSpacing: 1, fontFamily: 'Inter, monospace' }}>ROLE: PROPRIETORS</Typography>
+                    <Typography variant="body1" sx={{ color: 'common.white', fontWeight: 600, fontSize: '0.85rem', fontFamily: '"Space Grotesk", sans-serif' }}>Mr. Umar & Mr. Hanif</Typography>
                   </Box>
                 </Box>
 
                 <Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                    <PhoneIcon sx={{ fontSize: 18, color: 'primary.light' }} />
-                    <Typography variant="caption" sx={{ color: 'primary.light', display: 'block', fontWeight: 700, fontSize: '0.75rem', letterSpacing: 0.5 }}>PHONE</Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
+                    <PhoneIcon sx={{ fontSize: 16, color: 'secondary.main' }} />
+                    <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', fontWeight: 600, fontSize: '0.65rem', letterSpacing: 1, fontFamily: 'Inter, monospace' }}>SYS_PHONE</Typography>
                   </Box>
-                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.95rem' }}>{settings?.contactPhone || '+91 8048264492'}</Typography>
+                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.90rem', fontFamily: 'Inter, monospace', lineHeight: 1.4 }}>
+                    +91 84013 03078<br />+91 95747 97483
+                  </Typography>
                 </Box>
 
                 <Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                    <EmailIcon sx={{ fontSize: 18, color: 'primary.light' }} />
-                    <Typography variant="caption" sx={{ color: 'primary.light', display: 'block', fontWeight: 700, fontSize: '0.75rem', letterSpacing: 0.5 }}>EMAIL</Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
+                    <EmailIcon sx={{ fontSize: 16, color: 'secondary.main' }} />
+                    <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', fontWeight: 600, fontSize: '0.65rem', letterSpacing: 1, fontFamily: 'Inter, monospace' }}>SYS_EMAIL</Typography>
                   </Box>
-                  <Link href={`mailto:${settings?.contactEmail || 'info@seaduckmarine.com'}`} sx={{ display: 'block', color: 'rgba(255,255,255,0.9)', fontSize: '0.95rem', textDecoration: 'none', transition: 'color 0.2s ease', '&:hover': { color: 'primary.light' } }}>
-                    {settings?.contactEmail || 'info@seaduckmarine.com'}
+                  <Link href={`mailto:${settings?.contactEmail || 'enqsdms7483@gmail.com'}`} sx={{ display: 'block', color: 'rgba(255,255,255,0.9)', fontSize: '0.90rem', textDecoration: 'none', transition: 'color 0.2s ease', '&:hover': { color: 'secondary.main' } }}>
+                    {settings?.contactEmail || 'enqsdms7483@gmail.com'}
                   </Link>
                 </Box>
               </Box>

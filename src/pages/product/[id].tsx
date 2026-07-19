@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { MainLayout } from '@/components/layout'
 import { NextPageWithLayout } from '@/interfaces/layout'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import connectToDatabase from '@/lib/db'
+import { connectToDatabase, disconnectFromDatabase } from '@/lib/db'
 import { Product } from '@/lib/models'
 import { SEO } from '@/components/seo/SEO'
 import { ProductSchema } from '@/components/seo/product-schema'
@@ -140,12 +140,12 @@ const ProductDetailPage: NextPageWithLayout<ProductProps> = ({ product, relatedP
               <div className="space-y-4 mb-12">
                  <OrderForm productId={product._id} productTitle={product.title} />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                     <a href="tel:+919023968557" className="flex items-center justify-center gap-2 py-4 border border-slate-300 hover:border-primary text-primary font-mono font-bold uppercase text-[10px] tracking-widest hover:bg-slate-50 transition-all no-underline">
-                       <Phone className="w-4 h-4" /> Call Hotline
-                     </a>
-                     <a href={`mailto:Sea Duck.navigation@gmail.com?subject=Enquiry for ${product.title}`} className="flex items-center justify-center gap-2 py-4 border border-slate-300 hover:border-primary text-primary font-mono font-bold uppercase text-[10px] tracking-widest hover:bg-slate-50 transition-all no-underline">
-                        <Mail className="w-4 h-4" /> Email Inquiry
-                     </a>
+                      <a href="tel:+918401303078" className="flex items-center justify-center gap-2 py-4 border border-slate-300 hover:border-primary text-primary font-mono font-bold uppercase text-[10px] tracking-widest hover:bg-slate-50 transition-all no-underline">
+                        <Phone className="w-4 h-4" /> Call Hotline
+                      </a>
+                      <a href={`mailto:enqsdms7483@gmail.com?subject=Enquiry for ${product.title}`} className="flex items-center justify-center gap-2 py-4 border border-slate-300 hover:border-primary text-primary font-mono font-bold uppercase text-[10px] tracking-widest hover:bg-slate-50 transition-all no-underline">
+                         <Mail className="w-4 h-4" /> Email Inquiry
+                      </a>
                   </div>
               </div>
 
@@ -274,6 +274,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   } catch (error) {
     console.error("Error in getStaticProps for product:", error)
     return { notFound: true }
+  } finally {
+    await disconnectFromDatabase()
   }
 }
 

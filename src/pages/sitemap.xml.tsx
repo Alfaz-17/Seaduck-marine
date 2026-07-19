@@ -27,11 +27,6 @@ function generateSiteMap(products: any[], categories: any[]) {
        <changefreq>monthly</changefreq>
        <priority>0.7</priority>
      </url>
-     <url>
-       <loc>${EXTERNAL_DATA_URL}/services</loc>
-       <changefreq>monthly</changefreq>
-       <priority>0.8</priority>
-     </url>
      
      ${categories
        .map(({ _id, name }) => {

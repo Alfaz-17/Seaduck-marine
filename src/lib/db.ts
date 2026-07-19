@@ -29,11 +29,22 @@ async function connectToDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      connectTimeoutMS: 3000,
+      serverSelectionTimeoutMS: 3000,
+      socketTimeoutMS: 3000,
+      autoIndex: false,
     }
 
-    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
-      return mongoose
+    // Strict 3.5s timeout fallback to prevent any event loop hangs
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('Mongoose connection timed out (3.5s limit)')), 3500)
     })
+
+    const connectionPromise = mongoose.connect(MONGODB_URI!, opts).then((mongooseInstance) => {
+      return mongooseInstance
+    })
+
+    cached.promise = Promise.race([connectionPromise, timeoutPromise])
   }
 
   try {
@@ -46,4 +57,18 @@ async function connectToDatabase() {
   return cached.conn
 }
 
+async function disconnectFromDatabase() {
+  try {
+    if (mongoose.connection && mongoose.connection.readyState !== 0) {
+      await mongoose.disconnect()
+    }
+  } catch (err) {
+    console.error("Error during database disconnect:", err)
+  } finally {
+    cached.conn = null
+    cached.promise = null
+  }
+}
+
+export { connectToDatabase, disconnectFromDatabase }
 export default connectToDatabase

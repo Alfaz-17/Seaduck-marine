@@ -12,7 +12,6 @@ export const User: Model<any> = models.User || model('User', UserSchema)
 // ── Category ──
 const CategorySchema = new Schema({
   name: { type: String, required: true },
-  mainCategory: { type: String, enum: ['Navigation', 'Automation', 'Communication'], required: true, default: 'Navigation' },
   slug: { type: String, unique: true, sparse: true },
   description: { type: String },
   image: { type: String },
@@ -83,16 +82,6 @@ const OrderSchema = new Schema({
 
 export const Order: Model<any> = models.Order || model('Order', OrderSchema)
 
-// ── Service & Installation ──
-const ServiceSchema = new Schema({
-  name: { type: String, required: true },
-  img: { type: String },
-  dec: { type: String },
-  featured: { type: Boolean, default: false }
-}, { timestamps: true })
-
-export const Service: Model<any> = models.Service || model('Service', ServiceSchema)
-
 // ── Settings ──
 const SettingsSchema = new Schema({
   siteName: { type: String, default: 'Sea Duck Marine Service' },
@@ -121,11 +110,3 @@ const InquirySchema = new Schema({
 
 export const Inquiry: Model<any> = models.Inquiry || model('Inquiry', InquirySchema)
 
-// ── Gallery (Infrastructure & Workshop) ──
-const GalleryImageSchema = new Schema({
-  url: { type: String, required: true },
-  title: { type: String },
-  category: { type: String, enum: ['office', 'workshop', 'company', 'other'], default: 'other' },
-}, { timestamps: true })
-
-export const GalleryImage: Model<any> = models.GalleryImage || model('GalleryImage', GalleryImageSchema)

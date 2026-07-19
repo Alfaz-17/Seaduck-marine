@@ -8,19 +8,19 @@ import Link from 'next/link'
 const categories = [
   {
     title: 'Navigation Systems',
-    image: '/images/categories/Navigation.jpg',
+    image: '/images/about/nav_system.png',
     description: 'Advanced radar, ECDIS, and gyroscopic compasses for precise voyage planning.',
     link: '/products'
   },
   {
     title: 'Automation & Control',
-    image: '/images/categories/Automation.png',
+    image: '/images/about/auto_control.png',
     description: 'Intelligent autopilot and bridge monitoring systems to optimize vessel operations.',
     link: '/products'
   },
   {
     title: 'Communication',
-    image: '/images/categories/Communication.jpg',
+    image: '/images/about/comm_system.png',
     description: 'Reliable satellite terminals, VHF radios, and global maritime distress systems.',
     link: '/products'
   }
@@ -28,7 +28,7 @@ const categories = [
 
 const AboutSection: FC = () => {
   return (
-    <Box sx={{ py: { xs: 7, md: 12 }, backgroundColor: 'primary.dark', position: 'relative', overflow: 'hidden' }}>
+    <Box sx={{ py: { xs: 7, md: 12 }, backgroundColor: 'background.default', position: 'relative', overflow: 'hidden' }}>
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
 
@@ -41,20 +41,41 @@ const AboutSection: FC = () => {
                   sx={{
                     display: 'block',
                     textDecoration: 'none',
-                    borderRadius: 1,
+                    borderRadius: 0,
                     overflow: 'hidden',
                     position: 'relative',
                     minHeight: { xs: 220, sm: 260, md: 340 },
                     height: '100%',
+                    border: '1px solid',
+                    borderColor: 'divider',
                     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0, left: 0, width: 12, height: 12,
+                      borderTop: '2px solid', borderLeft: '2px solid',
+                      borderColor: 'secondary.main',
+                      transition: 'all 0.3s ease',
+                      zIndex: 2,
+                    },
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: 0, right: 0, width: 12, height: 12,
+                      borderBottom: '2px solid', borderRight: '2px solid',
+                      borderColor: 'secondary.main',
+                      transition: 'all 0.3s ease',
+                      zIndex: 2,
+                    },
                     '&:hover': {
-                      transform: 'translateY(-10px)',
-                      boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+                      borderColor: 'secondary.main',
+                      '&::before': { width: 24, height: 24 },
+                      '&::after': { width: 24, height: 24 },
                       '& .category-img': {
-                        transform: 'scale(1.1)'
+                        transform: 'scale(1.05)'
                       },
                       '& .overlay': {
-                        background: 'rgba(5, 16, 33, 0.3)'
+                        background: 'rgba(2, 6, 23, 0.4)'
                       }
                     }
                   }}
@@ -78,7 +99,7 @@ const AboutSection: FC = () => {
                     sx={{ 
                       position: 'absolute', 
                       inset: 0, 
-                      background: 'rgba(5, 16, 33, 0.5)', 
+                      background: 'rgba(2, 6, 23, 0.65)', 
                       transition: 'background 0.4s ease' 
                     }} 
                   />
@@ -97,7 +118,8 @@ const AboutSection: FC = () => {
                     <Typography 
                       variant="h3" 
                       sx={{ 
-                        fontWeight: 800, 
+                        fontFamily: '"Space Grotesk", sans-serif',
+                        fontWeight: 700, 
                         fontSize: { xs: '1.45rem', sm: '1.65rem', md: '1.85rem' },
                         color: 'common.white', 
                         textAlign: 'center',

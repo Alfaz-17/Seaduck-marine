@@ -3,23 +3,22 @@ import dynamic from 'next/dynamic'
 import { GetStaticProps } from 'next'
 import { NextPageWithLayout } from '@/interfaces/layout'
 import { MainLayout } from '@/components/layout'
-import connectToDatabase from '@/lib/db'
-import { Product } from '@/lib/models'
+import { connectToDatabase, disconnectFromDatabase } from '@/lib/db'
+import { Product, Brand } from '@/lib/models'
 import { client } from '@/lib/sanity'
 
 import { SEO } from '@/components/seo/SEO'
 
 const DynamicHomeHero = dynamic(() => import('@/components/home/hero'))
 const DynamicMainCategories = dynamic(() => import('@/components/home/main-categories'))
-const DynamicStatsBand = dynamic(() => import('../components/home/stats'))
-const DynamicAboutSection = dynamic(() => import('../components/home/about-section'))
-const DynamicBrandsSection = dynamic(() => import('../components/home/brands-section'))
-const DynamicKeyFacts = dynamic(() => import('../components/home/key-facts'))
-const DynamicFeaturedProducts = dynamic(() => import('../components/home/featured-products'))
-const DynamicWhatWeDo = dynamic(() => import('../components/home/what-we-do'))
-const DynamicCustomerReviews = dynamic(() => import('../components/home/customer-reviews'))
-const DynamicWhyChoose = dynamic(() => import('../components/home/why-choose'))
-const DynamicCtaBand = dynamic(() => import('../components/home/cta-band'))
+const DynamicStatsBand = dynamic(() => import('@/components/home/stats'))
+const DynamicAboutSection = dynamic(() => import('@/components/home/about-section'))
+const DynamicBrandsSection = dynamic(() => import('@/components/home/brands-section'))
+const DynamicKeyFacts = dynamic(() => import('@/components/home/key-facts'))
+const DynamicFeaturedProducts = dynamic(() => import('@/components/home/featured-products'))
+const DynamicCustomerReviews = dynamic(() => import('@/components/home/customer-reviews'))
+const DynamicWhyChoose = dynamic(() => import('@/components/home/why-choose'))
+const DynamicCtaBand = dynamic(() => import('@/components/home/cta-band'))
 
 interface HomeProps {
   featuredProducts: any[]
@@ -37,9 +36,8 @@ const Home: NextPageWithLayout<HomeProps> = ({ featuredProducts, brands, homePag
       />
       <DynamicHomeHero data={homePageData} />
       <DynamicMainCategories />
-      <DynamicWhatWeDo data={homePageData} />
-      <DynamicWhyChoose />
       <DynamicFeaturedProducts products={featuredProducts} />
+      <DynamicWhyChoose />
       <DynamicStatsBand data={homePageData} />
       <DynamicBrandsSection brands={brands} />
       <DynamicCtaBand />
@@ -53,7 +51,7 @@ export const getStaticProps: GetStaticProps = async () => {
     
     const [products, brands, homePageData] = await Promise.all([
       Product.find({ featured: true }).populate('category').limit(10).lean(),
-      import('@/lib/models').then(m => m.Brand.find({}).lean()),
+      Brand.find({}).lean(),
       Promise.resolve(null)
     ])
     
@@ -79,6 +77,8 @@ export const getStaticProps: GetStaticProps = async () => {
       },
       revalidate: 60,
     }
+  } finally {
+    await disconnectFromDatabase()
   }
 }
 

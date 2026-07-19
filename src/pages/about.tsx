@@ -20,7 +20,7 @@ import { SEO } from '@/components/seo/SEO'
 import dynamic from 'next/dynamic'
 const PageHero = dynamic(() => import('@/components/page-hero'))
 import { CtaBand, WhyChoose, BrandsSection } from '@/components/home'
-import connectToDatabase from '@/lib/db'
+import { connectToDatabase, disconnectFromDatabase } from '@/lib/db'
 import { Brand } from '@/lib/models'
 
 import { client, urlFor } from '@/lib/sanity'
@@ -32,18 +32,26 @@ interface AboutUsProps {
 
 const defaultTeam = [
   {
-    name: 'Afjal Sarvaiya',
-    role: 'Managing Director',
-    description: 'Leading the vision and strategy for global maritime supply and services at Sea Duck Marine Service.',
-    phone: '+91 8160002323',
-    initials: 'AS',
+    name: 'Mr. Umar Saiyad',
+    role: 'Proprietor & Technical Director',
+    description: 'Directing technical support, service operations, and customer relations at Sea Duck Marine Service.',
+    phone: '+91 84013 03078',
+    initials: 'US',
+    isFounder: true,
+  },
+  {
+    name: 'Mr. Hanif Saiyad',
+    role: 'Partner & Sales Director',
+    description: 'Leading global sales, port coordination, and business development for marine spares and equipment.',
+    phone: '+91 95747 97483',
+    initials: 'HS',
     isFounder: true,
   },
   {
     name: 'Fejal Gundigara',
     role: 'Operations Manager',
     description: 'Overseeing day-to-day operations, ensuring seamless global dispatch and logistics efficiency.',
-    phone: '+91 8048264492',
+    phone: '+91 84013 03078',
     initials: 'FG',
     isFounder: false,
   },
@@ -59,7 +67,7 @@ const defaultTeam = [
     name: 'Sahil Sarmali',
     role: 'Finance & Account Manager',
     description: 'Directing financial planning, accounting compliance, and corporate financial health.',
-    phone: '+91 9081811248',
+    phone: '+91 95747 97483',
     initials: 'SS',
     isFounder: false,
   }
@@ -77,9 +85,9 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
       />
 
       <PageHero 
-        title="About Sea Duck Marine Service" 
-        subtitle="The Technical Room Specialists for the Global Maritime Fleet. Sourcing directly from Alang to supply certified navigation and automation systems."
-        image="/images/about-bridge.png"
+        title="About Us" 
+        subtitle="Serving the maritime industry with precision and integrity since 2009."
+        image="/images/about/about_hero.png"
       />
 
       {/* SECTION 1: WHO WE ARE */}
@@ -89,14 +97,14 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
             <Grid item xs={12} md={6}>
               <Box 
                 sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', height: { xs: 300, md: 450 }, cursor: 'pointer', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.02)' } }}
-                onClick={() => setLightboxImage('/images/office-outside.jpeg')}
+                onClick={() => setLightboxImage('/images/about/about_office.png')}
               >
-                <Image src="/images/office-outside.jpeg" alt="Sea Duck Marine Service Office Outside" layout="fill" objectFit="cover" />
+                <Image src="/images/about/about_office.png" alt="Sea Duck Marine Service Office Outside" layout="fill" objectFit="cover" />
                 {/* Brand color overlay */}
                 <Box sx={{ 
                   position: 'absolute', 
                   inset: 0, 
-                  background: 'linear-gradient(to top right, rgba(10,31,64,0.6) 0%, rgba(30,95,166,0.2) 100%)',
+                  background: 'linear-gradient(to top right, rgba(6,27,69,0.6) 0%, rgba(10,61,145,0.2) 100%)',
                   mixBlendMode: 'multiply',
                   pointerEvents: 'none'
                 }} />
@@ -111,10 +119,10 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
                 </Box>
               </Typography>
               <Typography sx={{ color: 'text.secondary', fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
-                Sea Duck Marine Service is a Bhavnagar, Gujarat-based distributor and supplier of marine radar, marine automation systems, lubricating oils, and ship spares. Sourced and distributed with reliability and care, we serve ship owners, ship-repair yards, and marine contractors across Gujarat and the wider maritime corridor with genuine equipment and dependable delivery.
+                Located in Bhavnagar, Gujarat, Sea Duck Marine Service is your go-to supplier for essential marine equipment. From navigation tools like marine radars to automation systems and ship spare parts, we provide everything you need to keep your vessels running smoothly.
               </Typography>
               <Typography sx={{ color: 'text.secondary', fontSize: '1.1rem', lineHeight: 1.8 }}>
-                Operating from Nawapara Road, Rasala Camp, near the High Court and DSP Office in Bhavnagar, we are strategically positioned to serve clients throughout Gujarat's maritime corridor, including the Alang ship-breaking and repair ecosystem.
+                Our office is conveniently located near the famous Alang ship-breaking yard. This strategic location allows us to quickly source high-quality, genuine parts and deliver them fast to ship owners and repair yards across the region.
               </Typography>
             </Grid>
           </Grid>
@@ -128,9 +136,9 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
             <Grid item xs={12} md={6}>
               <Box 
                 sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)', height: { xs: 300, md: 450 }, cursor: 'pointer', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.02)' } }}
-                onClick={() => setLightboxImage('/images/about-workshop.png')}
+                onClick={() => setLightboxImage('/images/about/about_workshop.png')}
               >
-                <Image src="/images/about-workshop.png" alt="Our Story" layout="fill" objectFit="cover" />
+                <Image src="/images/about/about_workshop.png" alt="Our Story" layout="fill" objectFit="cover" />
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -139,16 +147,16 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
                 Our Story
               </Typography>
               <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
-                Sea Duck Marine Service was founded in 2009 by proprietor Mr. Umar in Bhavnagar, Gujarat. What began as a focused marine radar supply business has grown into a trusted name for marine automation, machinery, lubricating oils, and ship spares across the region.
+                Founded in 2009 by Mr. Umar Saiyad & Mr. Hanif Saiyad, Sea Duck Marine Service started as a small supplier focusing on marine radars. Thanks to our commitment to honesty and hard work, we quickly grew into a trusted provider of a wide range of marine equipment and lubricating oils.
               </Typography>
               <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', lineHeight: 1.8, mb: 4 }}>
-                Sourcing genuine parts directly near the world's largest ship-recycling yard at Alang, our close proximity gives us direct access to high-grade marine equipment and a deep understanding of vessel systems, sourcing, and shipping logistics.
+                For over 15 years, we have built strong relationships with our customers by ensuring they always get the right parts at the right time. Our deep knowledge of the marine industry means we understand exactly what you need.
               </Typography>
               
               <Box sx={{ borderLeft: '4px solid #0A3D91', pl: 3, py: 1 }}>
                 <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>Our Mission</Typography>
                 <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', lineHeight: 1.6 }}>
-                  To supply genuine, reliable marine equipment and components to shipowners, contractors, and repair yards — on time, at fair prices, with honest service.
+                  To provide our customers with genuine, high-quality marine equipment at fair prices, delivered on time with friendly and reliable service.
                 </Typography>
               </Box>
             </Grid>
@@ -156,13 +164,12 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
         </Container>
       </Box>
 
-      <WhyChoose />
+      {/* Shared component removed to avoid duplicating the home page summary */}
 
       {/* SECTION 5: BRANDS */}
       <Box sx={{ py: 8 }}>
         <BrandsSection brands={brands} />
       </Box>
-
 
       <CtaBand tone="dark" />
 
@@ -223,6 +230,8 @@ export const getStaticProps: GetStaticProps = async () => {
       },
       revalidate: 60,
     }
+  } finally {
+    await disconnectFromDatabase()
   }
 }
 

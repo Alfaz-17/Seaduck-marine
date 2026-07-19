@@ -20,9 +20,9 @@ const StatsBand: FC<StatsBandProps> = ({ data }) => {
   return (
     <Box
       sx={{
-        backgroundColor: 'primary.dark',
+        backgroundColor: '#F4F6F9',
         py: { xs: 8, md: 6 },
-        color: 'common.white',
+        color: '#061B45',
         position: 'relative',
         overflow: 'hidden'
       }}
@@ -42,12 +42,12 @@ const StatsBand: FC<StatsBandProps> = ({ data }) => {
             const suffix = match ? match[2] : ''
 
             return (
-              <Grid key={idx} item xs={12} md={4} sx={{ textAlign: 'center', borderRight: { md: idx < facts.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none' } }}>
-                <Typography variant="h2" sx={{ fontSize: { xs: '3.5rem', md: '4.5rem' }, fontWeight: 800, mb: 1, color: 'common.white' }}>
+              <Grid key={idx} item xs={12} md={4} sx={{ textAlign: 'center', borderRight: { md: idx < facts.length - 1 ? '1px solid rgba(6, 27, 69, 0.1)' : 'none' } }}>
+                <Typography variant="h2" sx={{ fontSize: { xs: '3.5rem', md: '4.5rem' }, fontWeight: 800, mb: 1, color: '#061B45' }}>
                   {numericPart}
                   {suffix && <Typography component="sup" sx={{ fontSize: '1.8rem', color: 'secondary.main', ml: 0.5 }}>{suffix}</Typography>}
                 </Typography>
-                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', letterSpacing: 1.5, textTransform: 'uppercase', fontSize: '0.85rem', fontWeight: 600 }}>
+                <Typography variant="body2" sx={{ color: '#4A5568', letterSpacing: 1.5, textTransform: 'uppercase', fontSize: '0.85rem', fontWeight: 600 }}>
                   {labelPart1}<br />{labelPart2}
                 </Typography>
               </Grid>

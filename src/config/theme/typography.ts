@@ -1,7 +1,8 @@
 import { TypographyOptions } from '@mui/material/styles/createTypography'
 
 export const fontFamily = [
-  '"Outfit"',
+  '"Space Grotesk"',
+  '"Inter"',
   '-apple-system',
   'BlinkMacSystemFont',
   '"Segoe UI"',
@@ -15,8 +16,8 @@ const typography: TypographyOptions = {
   fontFamily,
   fontWeightLight: 300,
   fontWeightRegular: 400,
-  fontWeightMedium: 600,
-  fontWeightBold: 800,
+  fontWeightMedium: 500,
+  fontWeightBold: 700,
   h1: {
     fontSize: 56,
     lineHeight: 1.1,

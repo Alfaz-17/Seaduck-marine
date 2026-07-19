@@ -21,13 +21,13 @@ const WhatsAppButton: React.FC = () => {
     setOpen(true)
   }
 
-  const phoneNumber = '919081811248'
+  const phoneNumber = '918401303078'
   const message = 'Hello! I am interested in your marine equipment and services.'
   
   const actions = [
     { icon: <WhatsAppIcon sx={{ fontSize: 28 }} />, name: 'WhatsApp', url: `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, color: '#25D366', target: '_blank' },
-    { icon: <PhoneIcon sx={{ fontSize: 26 }} />, name: 'Call Us', url: `tel:+919081811248`, color: '#00BFA5', target: '_self' },
-    { icon: <EmailIcon sx={{ fontSize: 26 }} />, name: 'Email Us', url: `mailto:info@seaduckmarine.com`, color: '#FF5252', target: '_self' },
+    { icon: <PhoneIcon sx={{ fontSize: 26 }} />, name: 'Call Us', url: `tel:+918401303078`, color: '#00BFA5', target: '_self' },
+    { icon: <EmailIcon sx={{ fontSize: 26 }} />, name: 'Email Us', url: `mailto:enqsdms7483@gmail.com`, color: '#FF5252', target: '_self' },
   ]
 
   return (

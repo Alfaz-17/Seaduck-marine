@@ -84,14 +84,14 @@ export function OrderForm({ productId, productTitle, onClose }: OrderFormProps) 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white w-full max-w-md max-h-[92svh] overflow-y-auto p-5 sm:p-8 relative border border-[#ED1C24]/20 shadow-2xl"
+              className="bg-white w-full max-w-md max-h-[92svh] overflow-y-auto p-5 sm:p-8 relative border border-[#C7A66A]/20 shadow-2xl"
               onClick={(e: any) => e.stopPropagation()}
             >
               {/* Technical brackets */}
-              <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#ED1C24]/40" />
-              <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#ED1C24]/40" />
-              <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#ED1C24]/40" />
-              <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#ED1C24]/40" />
+              <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#C7A66A]/40" />
+              <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#C7A66A]/40" />
+              <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#C7A66A]/40" />
+              <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#C7A66A]/40" />
 
               <button
                 onClick={() => !loading && setIsOpen(false)}
@@ -105,8 +105,8 @@ export function OrderForm({ productId, productTitle, onClose }: OrderFormProps) 
                   <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Check className="w-8 h-8 text-emerald-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#1A1A1A] mb-2 font-syne uppercase">Request Transmitted!</h3>
-                  <p className="text-sm text-slate-500 m-0">Our engineers will contact you shortly with the quotation.</p>
+                  <h3 className="text-xl font-bold text-[#1A1A1A] mb-2 font-syne uppercase">Inquiry Submitted!</h3>
+                  <p className="text-sm text-slate-500 m-0">Our team will contact you shortly with the quotation.</p>
                 </div>
               ) : (
                 <>

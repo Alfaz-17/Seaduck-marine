@@ -74,7 +74,7 @@ export default function AdminLoginPage() {
           {/* Logo */}
           <div className="text-center mb-8">
              <div className="flex flex-col items-center justify-center gap-3 mb-2">
-                <img src="/Sea Duck-logo.png" alt="Sea Duck Marine Service Logo" className="h-16 w-auto object-contain" />
+                <img src="/logo.png" alt="Sea Duck Marine Service Logo" className="h-16 w-auto object-contain" />
                 <h1 className="text-xl font-bold tracking-widest text-slate-950 uppercase font-syne m-0">Sea Duck Marine Service</h1>
              </div>
              <p className="text-[9px] font-mono font-bold text-primary-light tracking-[0.45em] uppercase m-0">Control Console Access</p>

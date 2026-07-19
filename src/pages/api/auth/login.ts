@@ -62,8 +62,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       token,
       user: { id: user._id, name: user.name, email: user.email },
     })
-  } catch (error) {
-    console.error('Login error:', error)
-    return res.status(500).json({ error: 'Internal Server Error' })
+  } catch (error: any) {
+    console.error('Login error - DB connection or internal failure:', error?.message || error)
+    if (error?.stack) console.error(error.stack)
+    return res.status(500).json({ error: 'Internal Server Error', details: error?.message })
   }
 }

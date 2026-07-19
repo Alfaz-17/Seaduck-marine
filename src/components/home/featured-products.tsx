@@ -33,20 +33,17 @@ const FeaturedProducts: FC<FeaturedProductsProps> = ({ products }) => {
         <Box sx={{ mb: { xs: 4, md: 8 }, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: { xs: 2, md: 4 } }}>
           <Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
-              <Box sx={{ width: 24, height: 2, bgcolor: 'primary.light' }} />
-              <Typography variant="caption" sx={{ color: 'primary.light', fontWeight: 800, letterSpacing: 1.4, textTransform: 'uppercase' }}>
-                Featured Products
+              <Box sx={{ width: 24, height: 2, bgcolor: 'secondary.main' }} />
+              <Typography variant="caption" sx={{ color: 'secondary.main', fontFamily: 'Inter, monospace', fontWeight: 600, letterSpacing: 1.4, textTransform: 'uppercase' }}>
+                SYS_FEATURED_PRODUCTS
               </Typography>
             </Box>
-            <Typography variant="h2" sx={{ fontSize: { xs: '2.25rem', sm: '2.5rem', md: '3rem' }, color: 'primary.main', lineHeight: 1.15 }}>
-              <Box component="span" sx={{ position: 'relative', display: 'inline-block', pb: { xs: 2, md: 3 } }}>
+            <Typography variant="h2" sx={{ fontSize: { xs: '2.25rem', sm: '2.5rem', md: '3rem' }, fontFamily: '"Space Grotesk", sans-serif', color: 'text.primary', fontWeight: 700, lineHeight: 1.15 }}>
+              <Box component="span" sx={{ position: 'relative', display: 'inline-block', pb: 1, borderBottom: '4px solid', borderBottomColor: 'secondary.main' }}>
                 Equipment
-                <Box sx={{ position: 'absolute', bottom: '0px', left: '50%', transform: 'translateX(-50%) rotate(-2deg)', '& img': { width: { xs: 80, md: 100 }, opacity: 0.9 }, zIndex: -1 }}>
-                  <img src="/images/headline-curve.svg" alt="Headline curve" />
-                </Box>
               </Box>{' '}
               For Every<br />
-              <Typography component="span" sx={{ color: 'primary.light', fontFamily: 'inherit', fontSize: 'inherit', fontWeight: 'inherit' }}>
+              <Typography component="span" sx={{ color: 'secondary.main', fontFamily: 'inherit', fontSize: 'inherit', fontWeight: 'inherit' }}>
                 Maritime Need
               </Typography>
             </Typography>
@@ -54,16 +51,16 @@ const FeaturedProducts: FC<FeaturedProductsProps> = ({ products }) => {
           <Box sx={{ display: 'flex', gap: 1 }}>
             <IconButton 
               onClick={() => setViewMode('marquee')}
-              color={viewMode === 'marquee' ? 'primary' : 'default'}
-              sx={{ bgcolor: viewMode === 'marquee' ? 'primary.50' : 'transparent', '&:hover': { bgcolor: 'primary.50' } }}
+              color={viewMode === 'marquee' ? 'secondary' : 'default'}
+              sx={{ bgcolor: viewMode === 'marquee' ? 'rgba(14, 165, 233, 0.1)' : 'transparent', borderRadius: 1, '&:hover': { bgcolor: 'rgba(14, 165, 233, 0.15)' } }}
               title="Marquee View"
             >
               <GalleryHorizontalEnd size={20} />
             </IconButton>
             <IconButton 
               onClick={() => setViewMode('grid')}
-              color={viewMode === 'grid' ? 'primary' : 'default'}
-              sx={{ bgcolor: viewMode === 'grid' ? 'primary.50' : 'transparent', '&:hover': { bgcolor: 'primary.50' } }}
+              color={viewMode === 'grid' ? 'secondary' : 'default'}
+              sx={{ bgcolor: viewMode === 'grid' ? 'rgba(14, 165, 233, 0.1)' : 'transparent', borderRadius: 1, '&:hover': { bgcolor: 'rgba(14, 165, 233, 0.15)' } }}
               title="Grid View"
             >
               <LayoutGrid size={20} />

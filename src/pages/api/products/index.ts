@@ -43,8 +43,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .limit(limit ? parseInt(limit as string) : 100)
         .lean()
       return res.status(200).json(products)
-    } catch (error) {
-      return res.status(500).json({ error: 'Failed to fetch products' })
+    } catch (error: any) {
+      console.error('Error in GET /products:', error?.message || error)
+      return res.status(500).json({ error: 'Failed to fetch products', details: error?.message })
     }
   }
 
@@ -55,8 +56,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const product = await Product.create(req.body)
       return res.status(201).json(product)
-    } catch (error) {
-      return res.status(500).json({ error: 'Failed to create product' })
+    } catch (error: any) {
+      console.error('Error in POST /products:', error?.message || error)
+      if (error?.name === 'ValidationError') {
+        return res.status(400).json({ error: 'Validation failed', details: error?.message })
+      }
+      return res.status(500).json({ error: 'Failed to create product', details: error?.message })
     }
   }
 

@@ -18,8 +18,8 @@ class MyDocument extends Document<DocumentProps> {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <link rel="icon" type="image/png" href="/Sea Duck-logo.png" />
-          <link rel="apple-touch-icon" href="/Sea Duck-logo.png" />
+          <link rel="icon" type="image/png" href="/logo.png" />
+          <link rel="apple-touch-icon" href="/logo.png" />
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.background.paper} />
 
@@ -28,9 +28,9 @@ class MyDocument extends Document<DocumentProps> {
           <meta content="#fbfbfb" name="apple-mobile-web-app-status-bar-style" />
           <meta content="yes" name="apple-mobile-web-app-capable" />
 
-                  <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-          <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {this.props.emotionStyleTags}
         </Head>

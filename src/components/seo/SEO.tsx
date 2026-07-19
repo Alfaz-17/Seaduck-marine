@@ -17,7 +17,7 @@ const siteMetadata = {
   defaultTitle: 'Sea Duck Marine Service | Marine Spare Parts & Marine Services Supplier',
   description: 'Supplier of high-quality marine spare parts, automation systems, electronics, and reconditioned equipment sourced from Alang Shipyard. Global export available.',
   siteUrl: 'https://Sea Duckmarine.com', // Replace with actual domain when live
-  defaultImage: '/Sea Duck-logo.png',
+  defaultImage: '/logo.png',
   twitterHandle: '@Sea Duckmarine',
   defaultKeywords: ['marine spare parts', 'Alang shipyard', 'ship parts', 'marine automation', 'marine electronics', 'ship engine parts', 'marine equipment supplier'],
 }

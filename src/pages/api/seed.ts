@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import connectToDatabase from '@/lib/db'
-import { Category, Brand, Settings, Product, Service, User } from '@/lib/models'
+import { Category, Brand, Settings, Product, User } from '@/lib/models'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -64,9 +64,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await Settings.create({
         siteName: 'Sea Duck Marine Service',
         siteDescription: 'Marine & Industrial Suppliers',
-        contactEmail: 'info@seaduckmarine.com',
-        contactPhone: '+91 9081811248',
-        address: 'Bhavnagar, Gujarat, India',
+        contactEmail: 'enqsdms7483@gmail.com',
+        contactPhone: '+91 84013 03078 / +91 95747 97483',
+        address: 'Nawapara Road, Rasala Camp, High Court Road, Near DSP Office, Bhavnagar, Gujarat – 364001, India',
       })
     }
 

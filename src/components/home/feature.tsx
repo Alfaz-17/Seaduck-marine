@@ -51,10 +51,10 @@ const HomeFeature: FC = () => {
               </Typography>
 
               <Typography sx={{ color: 'primary.contrastText', opacity: 0.9, mb: 2, fontSize: '1.1rem' }}>
-                Founded in 2018, Sea Duck Marine Service is an Indian-based Marine Navigation & Communication Equipment Company. We are expert suppliers of marine navigation spare parts with a wide range of marine products.
+                Founded in 2009, Sea Duck Marine Service is a reliable name in the marine industry, delivering high-quality ship spares, equipment & solutions to keep your vessels running smoothly worldwide.
               </Typography>
               <Typography sx={{ color: 'primary.contrastText', opacity: 0.9, mb: 2, fontSize: '1.1rem' }}>
-                Under the leadership of Mr. Umar (Managing Director), an engineer in marine electronics since 2014 with over 13+ years of expertise, we have grown to be a trusted partner in marine navigation.
+                Under the leadership of Mr. Umar Saiyad and Mr. Hanif Saiyad, we have grown to be a trusted partner in marine navigation, automation systems, and ship engine consumables.
               </Typography>
             </Box>
           </Grid>

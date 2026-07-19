@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useTheme } from '@mui/material/styles';
 
 export const TopProgressBar = () => {
   const router = useRouter();
+  const theme = useTheme();
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
 
@@ -45,12 +47,12 @@ export const TopProgressBar = () => {
         top: 0,
         left: 0,
         height: '3px',
-        background: '#1E5FA6', // primary-light
+        background: theme.palette.primary.light,
         zIndex: 99999,
         transition: `width 0.4s ease, opacity 0.3s ease`,
         width: `${progress}%`,
         opacity: visible ? 1 : 0,
-        boxShadow: '0 0 10px rgba(30,95,166,0.5)',
+        boxShadow: `0 0 10px ${theme.palette.primary.light}`,
       }}
     />
   );

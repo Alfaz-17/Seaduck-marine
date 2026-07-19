@@ -7,7 +7,7 @@ interface Props {
   isScrolled?: boolean
 }
 
-const Logo: FC<Props> = ({ onClick, isScrolled }) => {
+const Logo: FC<Props> = ({ onClick, isScrolled, variant = 'primary' }) => {
   const logoWidth = { xs: isScrolled ? 90 : 110, sm: isScrolled ? 110 : 130, md: isScrolled ? 130 : 160 }
 
   return (
@@ -32,12 +32,6 @@ const Logo: FC<Props> = ({ onClick, isScrolled }) => {
       />
     </Box>
   )
-}
-
-
-
-Logo.defaultProps = {
-  variant: 'primary',
 }
 
 export default Logo

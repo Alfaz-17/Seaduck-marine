@@ -19,8 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .lean()
       if (!product) return res.status(404).json({ error: 'Product not found' })
       return res.status(200).json(product)
-    } catch (error) {
-      return res.status(500).json({ error: 'Failed to fetch product' })
+    } catch (error: any) {
+      console.error(`Error in GET /products/${id}:`, error?.message || error)
+      return res.status(500).json({ error: 'Failed to fetch product', details: error?.message })
     }
   }
 
@@ -32,8 +33,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const product = await Product.findByIdAndUpdate(id, req.body, { new: true })
       if (!product) return res.status(404).json({ error: 'Product not found' })
       return res.status(200).json(product)
-    } catch (error) {
-      return res.status(500).json({ error: 'Failed to update product' })
+    } catch (error: any) {
+      console.error(`Error in PUT /products/${id}:`, error?.message || error)
+      if (error?.name === 'ValidationError') {
+        return res.status(400).json({ error: 'Validation failed', details: error?.message })
+      }
+      return res.status(500).json({ error: 'Failed to update product', details: error?.message })
     }
   }
 
@@ -45,8 +50,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const product = await Product.findByIdAndDelete(id)
       if (!product) return res.status(404).json({ error: 'Product not found' })
       return res.status(200).json({ message: 'Product deleted' })
-    } catch (error) {
-      return res.status(500).json({ error: 'Failed to delete product' })
+    } catch (error: any) {
+      console.error(`Error in DELETE /products/${id}:`, error?.message || error)
+      return res.status(500).json({ error: 'Failed to delete product', details: error?.message })
     }
   }
 

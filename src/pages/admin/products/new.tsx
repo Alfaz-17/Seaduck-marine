@@ -20,6 +20,9 @@ export default function AdminProductFormPage() {
     category: '',
     keywords: [] as string[],
     specifications: {} as any,
+    sku: '',
+    price: 0,
+    availability: 'in-stock',
     featured: false
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -287,7 +290,7 @@ export default function AdminProductFormPage() {
       setFormData({ 
         title: '', slug: '', metaTitle: '', metaDescription: '', 
         description: '', brandName: '', category: '', 
-        keywords: [], specifications: {}, featured: false 
+        keywords: [], specifications: {}, sku: '', price: 0, availability: 'in-stock', featured: false 
       });
       setImageFile(null);
       setImagePreview('');
@@ -511,12 +514,52 @@ export default function AdminProductFormPage() {
                    </div>
                 </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                   <div className="space-y-2">
+                      <label className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-widest block">SKU</label>
+                      <input
+                        name="sku"
+                        type="text"
+                        placeholder="e.g. PART-12345"
+                        className="w-full px-4 py-4 bg-slate-950/60 border border-primary-light/20 focus:border-primary-light focus:bg-slate-950 outline-none text-xs text-white font-mono"
+                        value={formData.sku}
+                        onChange={handleChange}
+                      />
+                   </div>
+                   <div className="space-y-2">
+                      <label className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-widest block">Price (USD)</label>
+                      <input
+                        name="price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                        className="w-full px-4 py-4 bg-slate-950/60 border border-primary-light/20 focus:border-primary-light focus:bg-slate-950 outline-none text-xs text-white font-mono"
+                        value={formData.price}
+                        onChange={handleChange}
+                      />
+                   </div>
+                   <div className="space-y-2">
+                     <label className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-widest block">Availability</label>
+                     <select
+                       name="availability"
+                       className="w-full px-4 py-4 bg-slate-950/60 border border-primary-light/20 focus:border-primary-light focus:bg-slate-950 outline-none text-xs font-bold font-mono text-white tracking-widest uppercase"
+                       value={formData.availability}
+                       onChange={handleChange}
+                     >
+                       <option value="in-stock" className="bg-slate-950 text-white">In Stock</option>
+                       <option value="out-of-stock" className="bg-slate-950 text-white">Out of Stock</option>
+                       <option value="on-demand" className="bg-slate-950 text-white">On Demand</option>
+                     </select>
+                   </div>
+                </div>
+
                 <div className="flex items-center gap-4 pt-4">
                   <input
                     type="checkbox"
                     name="featured"
                     id="featured"
-                    className="w-4 h-4 border-slate-700 bg-slate-950 accent-[#1E5FA6] cursor-pointer"
+                    className="w-4 h-4 border-slate-700 bg-slate-950 accent-primary-light cursor-pointer"
                     checked={formData.featured}
                     onChange={handleChange}
                   />

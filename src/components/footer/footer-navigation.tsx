@@ -19,10 +19,6 @@ const productMenu: Array<Navigation> = [
     label: 'Spare Parts',
     path: '/products',
   },
-  {
-    label: 'Installation & Services',
-    path: '/services',
-  },
 ]
 
 const pageMenu = headerNavigations

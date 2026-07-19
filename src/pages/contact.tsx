@@ -6,8 +6,12 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { Email, Phone, LocationOn, Person } from '@mui/icons-material'
+import Email from '@mui/icons-material/Email'
+import Phone from '@mui/icons-material/Phone'
+import LocationOn from '@mui/icons-material/LocationOn'
+import Person from '@mui/icons-material/Person'
 import dynamic from 'next/dynamic'
+import { alpha } from '@mui/material/styles'
 
 import { NextPageWithLayout } from '@/interfaces/layout'
 import { MainLayout } from '@/components/layout'
@@ -19,6 +23,8 @@ const PageHero = dynamic(() => import('@/components/page-hero'))
 
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { connectToDatabase, disconnectFromDatabase } from '@/lib/db'
+import { Settings } from '@/lib/models'
 
 interface ContactProps {
   settings: any
@@ -43,9 +49,10 @@ const Contact: NextPageWithLayout<ContactProps> = ({ settings }) => {
       />
 
       <PageHero 
-        title="Contact Sea Duck Marine Service" 
-        subtitle="Reach out to our marine electronics experts for consultation, quotes, or support."
-        image="/images/why-choose-us.jpg"
+        title="Contact Us" 
+        subtitle="Get in touch for urgent inquiries, quotes, or technical support."
+        image="/images/contact_hero_technical.png"
+        compact
       />
 
       <Box sx={{ py: { xs: 8, md: 12 }, backgroundColor: 'background.default', color: 'text.primary' }}>
@@ -65,7 +72,7 @@ const Contact: NextPageWithLayout<ContactProps> = ({ settings }) => {
 
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <Box sx={{ display: 'flex', gap: 3 }}>
-                  <Box sx={{ bgcolor: '#1E5FA61A', p: 2, borderRadius: 1, display: 'flex' }}>
+                  <Box sx={{ bgcolor: (theme) => alpha(theme.palette.primary.light, 0.1), p: 2, borderRadius: 1, display: 'flex' }}>
                     <LocationOn sx={{ color: 'primary.light' }} />
                   </Box>
                   <Box>
@@ -75,33 +82,33 @@ const Contact: NextPageWithLayout<ContactProps> = ({ settings }) => {
                 </Box>
                 
                 <Box sx={{ display: 'flex', gap: 3 }}>
-                  <Box sx={{ bgcolor: '#1E5FA61A', p: 2, borderRadius: 1, display: 'flex' }}>
+                  <Box sx={{ bgcolor: (theme) => alpha(theme.palette.primary.light, 0.1), p: 2, borderRadius: 1, display: 'flex' }}>
                     <Email sx={{ color: 'primary.light' }} />
                   </Box>
                   <Box>
                     <Typography variant="h6" sx={{ mb: 0.5, color: 'text.primary' }}>Email Us</Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{settings?.contactEmail || 'info@seaduckmarine.com'}</Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{settings?.contactEmail || 'enqsdms7483@gmail.com'}</Typography>
                   </Box>
                 </Box>
                 
                 <Box sx={{ display: 'flex', gap: 3 }}>
-                  <Box sx={{ bgcolor: '#1E5FA61A', p: 2, borderRadius: 1, display: 'flex' }}>
+                  <Box sx={{ bgcolor: (theme) => alpha(theme.palette.primary.light, 0.1), p: 2, borderRadius: 1, display: 'flex' }}>
                     <Phone sx={{ color: 'primary.light' }} />
                   </Box>
                   <Box>
                     <Typography variant="h6" sx={{ mb: 0.5, color: 'text.primary' }}>Call Us 24/7</Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{settings?.contactPhone || '+91 8048264492'}</Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{settings?.contactPhone || '+91 84013 03078 / +91 95747 97483'}</Typography>
                   </Box>
                 </Box>
                 
                 <Box sx={{ display: 'flex', gap: 3 }}>
-                  <Box sx={{ bgcolor: '#1E5FA61A', p: 2, borderRadius: 1, display: 'flex' }}>
+                  <Box sx={{ bgcolor: (theme) => alpha(theme.palette.primary.light, 0.1), p: 2, borderRadius: 1, display: 'flex' }}>
                     <Person sx={{ color: 'primary.light' }} />
                   </Box>
                   <Box>
-                    <Typography variant="h6" sx={{ mb: 0.5, color: 'text.primary' }}>Proprietor</Typography>
-                    <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>Mr. Umar</Typography>
-                    <Typography sx={{ color: 'text.secondary', fontSize: '0.9rem' }}>Proprietor & Director</Typography>
+                    <Typography variant="h6" sx={{ mb: 0.5, color: 'text.primary' }}>Proprietors</Typography>
+                    <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>Mr. Umar Saiyad & Mr. Hanif Saiyad</Typography>
+                    <Typography sx={{ color: 'text.secondary', fontSize: '0.9rem' }}>Proprietors & Directors</Typography>
                   </Box>
                 </Box>
               </Box>
@@ -110,9 +117,10 @@ const Contact: NextPageWithLayout<ContactProps> = ({ settings }) => {
             {/* Contact Form */}
             <Grid item xs={12} md={7}>
               <Box sx={{ 
-                bgcolor: 'common.white',
-                border: '1px solid rgba(10,25,47,0.1)',
-                boxShadow: '0 16px 40px rgba(10,25,47,0.08)',
+                bgcolor: 'background.paper',
+                border: '1px solid',
+                borderColor: 'divider',
+                boxShadow: 'none',
                 p: { xs: 3, sm: 4, md: 6 }, 
                 borderRadius: 1 
               }}>
@@ -199,9 +207,6 @@ Contact.getLayout = (page: React.ReactElement) => <MainLayout>{page}</MainLayout
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const connectToDatabase = (await import('@/lib/db')).default
-    const { Settings } = await import('@/lib/models')
-    
     await connectToDatabase()
     const settings = await Settings.findOne().lean()
     
@@ -218,6 +223,8 @@ export const getStaticProps: GetStaticProps = async () => {
       },
       revalidate: 60,
     }
+  } finally {
+    await disconnectFromDatabase()
   }
 }
 

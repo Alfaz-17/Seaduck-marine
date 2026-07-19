@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import Box from '@mui/material/Box'
-// Removed react-scroll import as it's no longer used
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import type { Navigation as NavType } from '@/interfaces/navigation'
@@ -22,7 +21,7 @@ const Navigation: FC<NavigationProps> = ({ isScrolled, items, onNavigate }) => {
       ? (isActive ? 'primary.main' : 'text.secondary')
       : (isActive ? 'common.white' : 'rgba(255, 255, 255, 0.72)'),
     cursor: 'pointer',
-    fontWeight: 700,
+    fontWeight: 600,
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -30,39 +29,43 @@ const Navigation: FC<NavigationProps> = ({ isScrolled, items, onNavigate }) => {
     px: { xs: 2, md: 3 },
     py: { xs: 1, md: 1 },
     mb: { xs: 0.25, md: 0 },
-    fontSize: { xs: '1rem', md: isScrolled ? '1rem' : '1.1rem' },
+    fontSize: { xs: '0.9rem', md: '0.95rem' },
+    fontFamily: '"Space Grotesk", sans-serif',
+    textTransform: 'uppercase',
+    letterSpacing: 1.2,
     textDecoration: 'none',
     transition: 'color 0.3s ease-in-out',
+    '&::before': {
+      content: '"["',
+      position: 'absolute',
+      left: { xs: 8, md: 12 },
+      color: 'secondary.main',
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? 'translateX(0)' : 'translateX(10px)',
+      transition: 'all 0.3s ease',
+      fontFamily: 'Inter, monospace',
+    },
+    '&::after': {
+      content: '"]"',
+      position: 'absolute',
+      right: { xs: 8, md: 12 },
+      color: 'secondary.main',
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? 'translateX(0)' : 'translateX(-10px)',
+      transition: 'all 0.3s ease',
+      fontFamily: 'Inter, monospace',
+    },
     '&:hover': {
       color: isScrolled ? 'primary.main' : 'common.white',
-      '& .hover-curve': {
-        display: 'block',
+      '&::before, &::after': {
+        opacity: 1,
+        transform: 'translateX(0)',
       },
     },
     '&.current': {
       color: isScrolled ? 'primary.main' : 'common.white',
-      '& .hover-curve': {
-        display: 'block',
-      },
     },
   })
-
-
-  const renderCurve = (showByDefault = false) => (
-    <Box
-      className="hover-curve"
-      sx={{ position: 'absolute', bottom: 0,
-        left: '50%',
-        transform: 'translateX(-50%) rotate(2deg)',
-        lineHeight: 0,
-        pointerEvents: 'none',
-        display: showByDefault ? 'block' : 'none',
-        '& img': { width: 36, height: 'auto' },
-      }}
-    >
-      <img src="/images/headline-curve.svg" alt="Headline curve" />
-    </Box>
-  )
 
   return (
     <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', width: { xs: '100%', md: 'auto' }, maxWidth: { xs: 360, md: 'none' } }}>
@@ -77,9 +80,8 @@ const Navigation: FC<NavigationProps> = ({ isScrolled, items, onNavigate }) => {
                 sx={linkStyles(isActive)}
                 onClick={onNavigate}
               >
-                {renderCurve(isActive)}
                 {label}
-                {children && <Box component="span" sx={{ ml: 0.5, fontSize: '0.7rem', opacity: 0.7 }}>▼</Box>}
+                {children && <Box component="span" sx={{ ml: 0.5, fontSize: '0.6rem', opacity: 0.7 }}>▼</Box>}
               </Box>
             </NextLink>
 
@@ -96,13 +98,16 @@ const Navigation: FC<NavigationProps> = ({ isScrolled, items, onNavigate }) => {
                   transformOrigin: 'top',
                   minWidth: { md: 220 },
                   width: { xs: '100%', md: 'auto' },
-                  bgcolor: { xs: 'rgba(30,95,166,0.06)', md: 'background.paper' },
-                  boxShadow: { xs: 'none', md: '0 10px 40px rgba(0,0,0,0.15)' },
-                  borderRadius: 1,
-                  py: { xs: 0.5, md: 1.5 },
+                  bgcolor: { xs: 'rgba(2, 132, 199, 0.05)', md: 'background.paper' },
+                  boxShadow: { xs: 'none', md: '0 4px 20px rgba(0,0,0,0.1)' },
+                  borderRadius: 0,
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  borderTop: '2px solid',
+                  borderTopColor: 'secondary.main',
+                  py: { xs: 0.5, md: 1 },
                   mb: { xs: 0.75, md: 0 },
                   zIndex: 999,
-                  border: { xs: '1px solid rgba(30,95,166,0.08)', md: '1px solid rgba(0,0,0,0.05)' },
                   transition: 'all 0.3s ease',
                 }}
               >
@@ -117,15 +122,18 @@ const Navigation: FC<NavigationProps> = ({ isScrolled, items, onNavigate }) => {
                         py: { xs: 1, md: 1.5 },
                         color: 'text.secondary',
                         textDecoration: 'none',
-                        fontSize: { xs: '0.86rem', md: '0.95rem' },
+                        fontFamily: '"Space Grotesk", sans-serif',
+                        fontSize: { xs: '0.8rem', md: '0.85rem' },
                         fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: 1,
                         transition: 'all 0.2s',
+                        borderLeft: '2px solid transparent',
                         '&:hover': {
-                          bgcolor: 'rgba(30,95,166,0.05)',
+                          bgcolor: 'rgba(14, 165, 233, 0.05)',
                           color: 'primary.main',
-                          pl: 4,
-                          borderLeft: '4px solid',
-                          borderColor: 'primary.main'
+                          borderLeftColor: 'secondary.main',
+                          pl: 3.5,
                         }
                       }}
                     >

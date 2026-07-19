@@ -35,18 +35,18 @@ const ExpItem: FC<ExpItemProps> = ({ item }) => {
   return (
     <Box sx={{ 
       display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      flexDirection: { xs: 'column', sm: 'row' },
-      gap: { xs: 0.25, sm: 1.5 },
+      alignItems: { xs: 'center', md: 'flex-start' }, 
+      justifyContent: 'flex-start',
+      flexDirection: 'column',
+      gap: 0.5,
       py: { xs: 0.5, md: 0 }
     }}>
       <Typography
-        sx={{ color: 'secondary.main', fontSize: { xs: 22, md: 26 }, fontWeight: 800 }}
+        sx={{ color: 'secondary.main', fontFamily: '"Space Grotesk", sans-serif', fontSize: { xs: 24, md: 32 }, fontWeight: 800, lineHeight: 1 }}
       >
         {value}
       </Typography>
-      <Typography sx={{ color: '#D9EAF8', fontSize: { xs: '0.62rem', sm: '0.8rem' }, fontWeight: 700, textTransform: 'uppercase', letterSpacing: { xs: 0.5, sm: 1 }, textAlign: 'center', lineHeight: 1.25 }}>
+      <Typography sx={{ color: 'secondary.light', fontFamily: 'Inter, monospace', fontSize: { xs: '0.62rem', sm: '0.75rem' }, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: { xs: 'center', md: 'left' }, lineHeight: 1.2 }}>
         {label}
       </Typography>
     </Box>
@@ -78,13 +78,12 @@ const HomeHero: FC<HomeHeroProps> = ({ data }) => {
         overflow: 'hidden',
         backgroundColor: 'primary.dark',
       }}>
-        {/* Background hero video — single compressed MP4, no JS needed */}
+        {/* Background hero video — supports webm and mp4 fallbacks */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          src="/videos/hero.mp4"
           style={{
             position: 'absolute',
             width: '100%',
@@ -94,17 +93,23 @@ const HomeHero: FC<HomeHeroProps> = ({ data }) => {
             top: 0,
             left: 0,
             zIndex: 1,
-            opacity: 0.8,
+            opacity: 0.85,
           }}
-        />
-      {/* Slight black overlay for cinematic feel and text contrast */}
+        >
+          <source src="/videos/hero.webm" type="video/webm" />
+          <source src="/videos/hero.mp4" type="video/mp4" />
+        </video>
+      {/* Cinematic gradient overlay for premium look & text readability */}
       <Box sx={{ 
         position: 'absolute', 
         width: '100%', 
         height: '100%', 
         top: 0, 
         left: 0, 
-        backgroundColor: 'rgba(0, 0, 0, 0.4)', 
+        background: {
+          xs: 'linear-gradient(to bottom, rgba(11, 16, 24, 0.4) 0%, rgba(11, 16, 24, 0.65) 100%)',
+          md: 'linear-gradient(to right, rgba(11, 16, 24, 0.6) 0%, rgba(11, 16, 24, 0.4) 50%, rgba(11, 16, 24, 0.05) 100%)'
+        },
         zIndex: 2 
       }} />
       <Container maxWidth="lg" sx={{ 
@@ -116,21 +121,21 @@ const HomeHero: FC<HomeHeroProps> = ({ data }) => {
         justifyContent: 'space-between' 
       }}>
         <Grid container spacing={0} sx={{ 
-          flexDirection: 'column', 
+          flexDirection: 'row', 
           flex: { md: 1 }, 
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           pt: { xs: 6, md: 12 },
           pb: 0
         }}>
-          <Grid item xs={12} md={10} lg={8} sx={{ mx: 'auto' }}>
+          <Grid item xs={12} md={9} lg={8}>
             <Box
               sx={{
-                textAlign: 'center',
+                textAlign: 'left',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
+                alignItems: { xs: 'center', md: 'flex-start' },
+                justifyContent: 'center',
                 width: '100%',
                 mt: 0,
               }}
@@ -138,60 +143,64 @@ const HomeHero: FC<HomeHeroProps> = ({ data }) => {
               <Typography
                 component="h1"
                 sx={{
-                  fontSize: { xs: '1.5rem', sm: '2.2rem', md: '2.4rem', lg: '2.8rem' },
+                  fontFamily: '"Space Grotesk", sans-serif',
+                  fontSize: { xs: '1.4rem', sm: '1.9rem', md: '2.3rem', lg: '2.7rem' },
                   fontWeight: 800,
                   lineHeight: { xs: 1.2, md: 1.1 },
-                  letterSpacing: 0,
+                  letterSpacing: -0.5,
                   color: 'common.white',
-                  mb: 0,
-                  maxWidth: { xs: '100%', md: 850 },
-                  mx: 'auto',
-                  textShadow: '0px 2px 8px rgba(0,0,0,0.4)',
+                  mb: 2,
+                  maxWidth: '100%',
+                  textAlign: { xs: 'center', md: 'left' },
+                  textShadow: '0px 2px 10px rgba(0,0,0,0.5)',
                 }}
               >
                 <span dangerouslySetInnerHTML={{ 
                   __html: headline
-                    .replace('Navigation', '<span style="color:#93C5FD">Navigation</span>')
-                    .replace('Automation', '<span style="color:#93C5FD">Automation</span>')
-                    .replace('Communication', '<span style="color:#93C5FD">Communication</span>') 
+                    .replace('Navigation', '<span style="color:#0EA5E9">Navigation</span>')
+                    .replace('Automation', '<span style="color:#0EA5E9">Automation</span>')
+                    .replace('Communication', '<span style="color:#0EA5E9">Communication</span>') 
                 }} />
               </Typography>
 
               <Typography 
                 sx={{ 
+                  fontFamily: 'Inter, sans-serif',
                   color: '#F8FAFC',
-                  lineHeight: { xs: 1.8, md: 1.3 },
-                  fontSize: { xs: '0.85rem', md: '1rem' },
+                  lineHeight: 1.6,
+                  fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.95rem' },
                   fontWeight: 400,
-                  mt: { xs: 0.5, md: 0.5 },
-                  mb: { xs: 1.5, md: 2 },
-                  maxWidth: { xs: 520, md: 600 },
-                  mx: 'auto',
-                  textShadow: '0px 1px 3px rgba(0,0,0,0.5)',
+                  mt: 0,
+                  mb: 4,
+                  maxWidth: 600,
+                  textAlign: { xs: 'center', md: 'left' },
+                  textShadow: '0px 1px 4px rgba(0,0,0,0.6)',
                 }}
               >
                 {subtitle}
               </Typography>
 
 
-              <Box sx={{ display: 'flex', flexDirection: 'row', width: 'auto', flexWrap: 'wrap', justifyContent: 'center', gap: { xs: 1.25, sm: 2 } }}>
+              <Box sx={{ display: 'flex', flexDirection: 'row', width: 'auto', flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' }, gap: { xs: 1.25, sm: 2 } }}>
                 <Link href="/products" passHref>
                   <StyledButton color="primary" size="large" variant="contained" sx={{
-                    borderRadius: 1,
+                    borderRadius: 0,
                     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                     boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
                     textTransform: 'uppercase',
-                    fontWeight: 800,
+                    fontFamily: 'Inter, monospace',
+                    fontWeight: 700,
                     letterSpacing: 1,
                     fontSize: { xs: '0.68rem', md: '0.75rem' },
                     px: { xs: 2.4, md: 4.5 },
                     py: { xs: 0.8, md: 1 },
                     width: 'auto',
                     minWidth: { xs: 128, sm: 140 },
-                    backgroundColor: 'primary.main',
+                    backgroundColor: 'secondary.main',
+                    color: 'common.white',
                     '&:hover': { 
                       transform: 'translateY(-2px)', 
-                      backgroundColor: 'primary.light',
+                      backgroundColor: 'secondary.dark',
                       boxShadow: '0 12px 24px rgba(0, 0, 0, 0.3)' 
                     }
                   }}>
@@ -200,14 +209,15 @@ const HomeHero: FC<HomeHeroProps> = ({ data }) => {
                 </Link>
                 <Link href="/contact" passHref>
                   <StyledButton size="large" variant="outlined" sx={{
-                    borderRadius: 1,
+                    borderRadius: 0,
                     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                     color: 'common.white',
                     borderColor: 'rgba(255, 255, 255, 0.2)',
                     backgroundColor: 'rgba(255, 255, 255, 0.03)',
                     backdropFilter: 'blur(5px)',
                     textTransform: 'uppercase',
-                    fontWeight: 800,
+                    fontFamily: 'Inter, monospace',
+                    fontWeight: 700,
                     letterSpacing: 1,
                     fontSize: { xs: '0.68rem', md: '0.75rem' },
                     px: { xs: 2.4, md: 4.5 },
@@ -216,8 +226,8 @@ const HomeHero: FC<HomeHeroProps> = ({ data }) => {
                     minWidth: { xs: 128, sm: 140 },
                     '&:hover': { 
                       transform: 'translateY(-2px)', 
-                      borderColor: 'common.white', 
-                      backgroundColor: 'rgba(255, 255, 255, 0.12)' 
+                      borderColor: 'secondary.main', 
+                      backgroundColor: 'rgba(14, 165, 233, 0.12)' 
                     }
                   }}>
                     Contact
@@ -235,9 +245,9 @@ const HomeHero: FC<HomeHeroProps> = ({ data }) => {
           mb: { xs: 0, md: 2 },
           borderTop: '1px solid rgba(255, 255, 255, 0.1)'
         }}>
-          <Grid container spacing={{ xs: 1, md: 2 }}>
+          <Grid container spacing={{ xs: 1, md: 2 }} sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
             {stats.map((item: any) => (
-              <Grid key={item.label} item xs={4} md={4}>
+              <Grid key={item.label} item xs={4} md={3} lg={2.5}>
                 <ExpItem item={item} />
               </Grid>
             ))}

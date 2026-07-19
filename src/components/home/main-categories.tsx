@@ -8,28 +8,38 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 const categories = [
   {
-    name: 'Marine Radar',
-    image: '/images/categories/Navigation.jpg',
-    description: 'Reliable navigation radar systems for cargo vessels and small craft — Furuno, JRC, and more.',
-  },
-  {
-    name: 'Automation & Machinery',
+    name: 'Engine Spares',
     image: '/images/categories/Automation.png',
-    description: 'Engine room automation, Nor Sau 8625 modules, alarm monitoring systems, and allied machinery.',
+    description: 'Pistons, liners, valves, compressor spares, and rebuild kits for propulsion systems.',
   },
   {
-    name: 'Lubricating Oils',
-    image: '/images/categories/Communication.jpg',
-    description: 'Marine-grade lubricants (SAE 30/50) from Shell, Castrol Marine, and other trusted brands.',
-  },
-  {
-    name: 'Ship Items & Spares',
+    name: 'Deck Equipment',
     image: '/images/categories/Navigation.jpg',
-    description: 'Valves, pumps, compressor spares, electrical components, and deck fittings for repair and refit.',
+    description: 'High-quality winches, anchors, chains, valves, pumps, and deck fittings for cargo operations.',
+  },
+  {
+    name: 'Navigation Equipment',
+    image: '/images/categories/Navigation.jpg',
+    description: 'Marine radars, GPS systems, echo sounders, gyrocompasses, and complete communication consoles.',
+  },
+  {
+    name: 'Electrical Items',
+    image: '/images/categories/Automation.png',
+    description: 'Reconditioned automation panels, alarm monitoring sensors, contactors, relays, and bridge controllers.',
+  },
+  {
+    name: 'Consumables',
+    image: '/images/categories/Communication.jpg',
+    description: 'Premium marine lubricants (Shell, Castrol), packings, seals, filters, and daily engine room supplies.',
+  },
+  {
+    name: 'Packing & Worldwide Delivery',
+    image: '/images/categories/Communication.jpg',
+    description: 'Secure wooden crate packing, custom documentation, and rapid dispatch to major global ports.',
   }
 ]
 
-const CategoryCard = ({ category, isLarge = false }: { category: any, isLarge?: boolean }) => (
+const CategoryCard = ({ category }: { category: any }) => (
   <Link href={`/products?category=${encodeURIComponent(category.name)}`} passHref>
     <Box
       component="a"
@@ -37,20 +47,42 @@ const CategoryCard = ({ category, isLarge = false }: { category: any, isLarge?: 
         textDecoration: 'none',
         display: 'flex',
         position: 'relative',
-        borderRadius: 3,
+        borderRadius: 0,
         overflow: 'hidden',
-        height: isLarge ? { xs: 350, sm: 400, md: '100%' } : { xs: 280, sm: 320, md: '100%' },
-        minHeight: isLarge ? { md: 520 } : { md: 248 },
+        border: '1px solid',
+        borderColor: 'divider',
+        height: { xs: 300, md: 360 },
         alignItems: 'flex-end',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
         cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0, left: 0, width: 12, height: 12,
+          borderTop: '2px solid', borderLeft: '2px solid',
+          borderColor: 'secondary.main',
+          transition: 'all 0.3s ease',
+          zIndex: 2,
+        },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          bottom: 0, right: 0, width: 12, height: 12,
+          borderBottom: '2px solid', borderRight: '2px solid',
+          borderColor: 'secondary.main',
+          transition: 'all 0.3s ease',
+          zIndex: 2,
+        },
         '&:hover': {
-          boxShadow: '0 15px 50px rgba(0,0,0,0.15)',
+          borderColor: 'secondary.main',
+          '&::before': { width: 24, height: 24 },
+          '&::after': { width: 24, height: 24 },
           '& .bg-image': {
-            transform: 'scale(1.08)',
+            transform: 'scale(1.05)',
+            filter: 'contrast(1.1) brightness(0.9)',
           },
           '& .overlay': {
-            opacity: 0.8,
+            opacity: 0.85,
           },
           '& .explore-btn': {
             opacity: 1,
@@ -67,7 +99,7 @@ const CategoryCard = ({ category, isLarge = false }: { category: any, isLarge?: 
           backgroundImage: `url(${category.image})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          transition: 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          transition: 'all 0.5s ease',
         }}
       />
       <Box
@@ -75,16 +107,16 @@ const CategoryCard = ({ category, isLarge = false }: { category: any, isLarge?: 
         sx={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to top, rgba(10, 25, 47, 0.95) 0%, rgba(10, 25, 47, 0.4) 40%, transparent 100%)',
-          opacity: 0.85,
-          transition: 'opacity 0.5s ease',
+          background: 'linear-gradient(to top, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.6) 40%, transparent 100%)',
+          opacity: 0.9,
+          transition: 'opacity 0.4s ease',
         }}
       />
       <Box sx={{ position: 'relative', zIndex: 1, p: { xs: 3, md: 4 }, width: '100%' }}>
-        <Typography variant="h4" component="h3" sx={{ color: 'common.white', fontWeight: 800, mb: 1, fontSize: { xs: '1.5rem', md: isLarge ? '2.2rem' : '1.4rem' } }}>
+        <Typography variant="h4" component="h3" sx={{ color: 'common.white', fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, mb: 1, fontSize: { xs: '1.3rem', md: '1.4rem' } }}>
           {category.name}
         </Typography>
-        <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', mb: 2, lineHeight: 1.6 }}>
+        <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', mb: 2, lineHeight: 1.6 }}>
           {category.description}
         </Typography>
         <Box 
@@ -94,13 +126,16 @@ const CategoryCard = ({ category, isLarge = false }: { category: any, isLarge?: 
             alignItems: 'center', 
             gap: 1, 
             color: 'secondary.main', 
-            fontWeight: 700,
+            fontWeight: 600,
+            fontFamily: 'Inter, monospace',
+            textTransform: 'uppercase',
+            letterSpacing: 1,
             opacity: { xs: 1, md: 0 },
             transform: { xs: 'translateY(0)', md: 'translateY(10px)' },
-            transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            transition: 'all 0.4s ease',
           }}
         >
-          View Products <ArrowForwardIcon fontSize="small" />
+          VIEW_PRODUCTS <ArrowForwardIcon fontSize="small" />
         </Box>
       </Box>
     </Box>
@@ -109,45 +144,26 @@ const CategoryCard = ({ category, isLarge = false }: { category: any, isLarge?: 
 
 const MainCategories: FC = () => {
   return (
-    <Box id="main-categories" sx={{ py: { xs: 6, md: 6 }, backgroundColor: 'background.paper' }}>
+    <Box id="main-categories" sx={{ py: { xs: 8, md: 10 }, bgcolor: 'background.default' }}>
       <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 8 } }}>
-          <Typography variant="caption" sx={{ color: 'primary.light', fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', display: 'block', mb: 2 }}>
-            What We Supply
+          <Typography variant="caption" sx={{ color: 'secondary.main', fontFamily: 'Inter, monospace', fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', display: 'block', mb: 2 }}>
+            OUR SERVICE SOLUTIONS
           </Typography>
-          <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, fontWeight: 700, color: 'text.primary', position: 'relative', display: 'inline-block' }}>
-            Our Product{' '}
-            <Box component="span" sx={{ position: 'relative', display: 'inline-block', pb: { xs: 2, md: 3 } }}>
-              Categories
-              <Box sx={{ position: 'absolute', bottom: '0px', left: { xs: '50%', md: 0 }, transform: { xs: 'translateX(-50%) rotate(2deg)', md: 'rotate(2deg)' }, '& img': { width: { xs: 80, md: 120 }, opacity: 0.9 }, zIndex: -1 }}>
-                <img src="/images/headline-curve.svg" alt="Headline curve" />
-              </Box>
+          <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, color: 'text.primary', position: 'relative', display: 'inline-block' }}>
+            Our Marine{' '}
+            <Box component="span" sx={{ position: 'relative', display: 'inline-block', pb: 1, borderBottom: '4px solid', borderBottomColor: 'secondary.main' }}>
+              Solutions
             </Box>
           </Typography>
         </Box>
 
         <Grid container spacing={3}>
-          {/* Large Left Card — Marine Radar */}
-          <Grid item xs={12} md={6}>
-            <CategoryCard category={categories[0]} isLarge />
-          </Grid>
-          
-          {/* Right Column — 2 stacked */}
-          <Grid item xs={12} md={6}>
-            <Grid container spacing={3} sx={{ height: '100%' }}>
-              <Grid item xs={12}>
-                <CategoryCard category={categories[1]} />
-              </Grid>
-              <Grid item xs={12}>
-                <CategoryCard category={categories[2]} />
-              </Grid>
+          {categories.map((category, idx) => (
+            <Grid item xs={12} sm={6} md={4} key={idx}>
+              <CategoryCard category={category} />
             </Grid>
-          </Grid>
-
-          {/* Full-width bottom — Ship Items & Spares */}
-          <Grid item xs={12}>
-            <CategoryCard category={categories[3]} />
-          </Grid>
+          ))}
         </Grid>
       </Container>
     </Box>

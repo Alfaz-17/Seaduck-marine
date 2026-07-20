@@ -47,7 +47,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  outputFileTracing: false,
+  outputFileTracing: true,
 }
 
 module.exports = nextConfig

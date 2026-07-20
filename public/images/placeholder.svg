@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+  <rect width="100%" height="100%" fill="#f1f5f9"/>
+  <!-- Decorative marine wheel/anchor style icon outline -->
+  <circle cx="200" cy="220" r="50" fill="none" stroke="#cbd5e1" stroke-width="4"/>
+  <line x1="200" y1="140" x2="200" y2="300" stroke="#cbd5e1" stroke-width="4"/>
+  <line x1="120" y1="220" x2="280" y2="220" stroke="#cbd5e1" stroke-width="4"/>
+  <line x1="143.4" y1="163.4" x2="256.6" y2="276.6" stroke="#cbd5e1" stroke-width="4"/>
+  <line x1="143.4" y1="276.6" x2="256.6" y2="163.4" stroke="#cbd5e1" stroke-width="4"/>
+  <circle cx="200" cy="220" r="25" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="4"/>
+  
+  <text x="50%" y="360" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="16" fill="#94a3b8" letter-spacing="0.1em">SEA DUCK MARINE</text>
+  <text x="50%" y="390" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="12" fill="#94a3b8" letter-spacing="0.05em">No Image Available</text>
+</svg>

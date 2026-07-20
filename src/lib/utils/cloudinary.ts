@@ -60,9 +60,7 @@ export const uploadToCloudinary = async (file: File, folder = "Sea Duck-marine")
 
     return data.secure_url;
   } catch (error: any) {
-    console.error("Cloudinary upload error:", error);
-    // Return a dummy fallback image from unsplash if upload fails (e.g. if preset is invalid)
-    // so that the admin panel doesn't crash and the user can still add products
-    return `https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=60`;
+    // Return a local fallback image if upload fails
+    return `/images/placeholder.svg`;
   }
 };

@@ -14,7 +14,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const [imgSrc, setImgSrc] = useState(product.image || "/images/placeholder.jpg")
+  const [imgSrc, setImgSrc] = useState(product.image || "/images/placeholder.svg")
   const [hasError, setHasError] = useState(false)
 
   return (
@@ -28,7 +28,7 @@ export function ProductCard({ product }: ProductCardProps) {
               onError={() => {
                   if (!hasError) {
                       setHasError(true);
-                      setImgSrc("/images/placeholder.jpg"); 
+                      setImgSrc("/images/placeholder.svg"); 
                   }
               }}
               className="object-cover group-hover:scale-110 transition-transform duration-700"

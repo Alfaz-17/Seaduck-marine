@@ -93,7 +93,7 @@ export default function AdminLoginPage() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="operator@Sea Duckmarine.com"
+                  placeholder="operator@seaduckmarine.com"
                   className="w-full px-4 py-4 pl-12 border border-slate-200 bg-white focus:border-primary-light outline-none text-sm transition-all text-slate-950 font-mono"
                   value={formData.email}
                   onChange={handleChange}

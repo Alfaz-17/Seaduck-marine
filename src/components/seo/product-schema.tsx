@@ -28,7 +28,7 @@ export function ProductSchema({ product }: ProductSchemaProps) {
     "category": product.category?.name || "Marine Equipment",
     "offers": {
       "@type": "Offer",
-      "url": `https://Sea Duckmarine.com/product/${product._id}`,
+      "url": `https://seaduckmarine.com/products/${product.slug || product._id}`,
       "priceCurrency": "USD",
       "price": price,
       "priceValidUntil": validUntil.toISOString().split('T')[0],

@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import connectToDatabase from '@/lib/db'
 import { Product, Category, Brand } from '@/lib/models'
 
-const EXTERNAL_DATA_URL = 'https://Sea Duckmarine.com'
+const EXTERNAL_DATA_URL = 'https://seaduckmarine.com'
 
 function generateSiteMap(products: any[], categories: any[]) {
   return `<?xml version="1.0" encoding="UTF-8"?>

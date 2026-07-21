@@ -5,8 +5,8 @@ export function GlobalStructuredData() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Sea Duck Marine Service",
-    "url": "https://Sea Duckmarine.com",
-    "logo": "https://Sea Duckmarine.com/images/logo.png",
+    "url": "https://seaduckmarine.com",
+    "logo": "https://seaduckmarine.com/images/logo.png",
     "foundingDate": "2013",
     "description": "Trader, distributor, and service provider for reconditioned marine electronics, navigation aids, and automation equipment.",
     "contactPoint": [
@@ -31,7 +31,7 @@ export function GlobalStructuredData() {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "Store"],
     "name": "Sea Duck Marine Service",
-    "image": "https://Sea Duckmarine.com/images/logo.png",
+    "image": "https://seaduckmarine.com/images/logo.png",
     "telephone": "+91-9925232986",
     "address": {
       "@type": "PostalAddress",
@@ -62,12 +62,12 @@ export function GlobalStructuredData() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Sea Duck Marine Service",
-    "url": "https://Sea Duckmarine.com",
+    "url": "https://seaduckmarine.com",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://Sea Duckmarine.com/products?q={search_term_string}"
+        "urlTemplate": "https://seaduckmarine.com/products?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }

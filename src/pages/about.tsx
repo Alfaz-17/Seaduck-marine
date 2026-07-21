@@ -275,7 +275,7 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
       </Box>
 
       {/* SECTION 3: OUR EXPERTISE & SERVICES */}
-      <Box id="expertise" sx={{ py: { xs: 8, md: 12 }, backgroundColor: 'background.default' }}>
+      <Box id="expertise" sx={{ py: { xs: 8, md: 12 }, backgroundColor: 'background.paper' }}>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mb: 2 }}>

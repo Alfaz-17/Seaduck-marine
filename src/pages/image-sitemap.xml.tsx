@@ -2,20 +2,21 @@ import { GetServerSideProps } from 'next'
 import connectToDatabase from '@/lib/db'
 import { Product } from '@/lib/models'
 
-const EXTERNAL_DATA_URL = 'https://Sea Duckmarine.com'
+const EXTERNAL_DATA_URL = 'https://seaduckmarine.com'
 
 function generateImageSiteMap(products: any[]) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
      ${products
        .filter((p) => p.image)
-       .map(({ _id, image, title, brand, category }) => {
+       .map(({ _id, slug, image, title, brand, category }) => {
          const cleanTitle = title?.replace(/&/g, '&amp;') || ''
          const cleanBrand = brand?.replace(/&/g, '&amp;') || ''
+         const urlIdentifier = slug || _id
          
          return `
        <url>
-           <loc>${EXTERNAL_DATA_URL}/product/${_id}</loc>
+           <loc>${EXTERNAL_DATA_URL}/products/${urlIdentifier}</loc>
            <image:image>
                <image:loc>${image.startsWith('http') ? image : `${EXTERNAL_DATA_URL}${image}`}</image:loc>
                <image:title>${cleanTitle} ${cleanBrand ? `by ${cleanBrand}` : ''} | Marine Spare Parts</image:title>
@@ -39,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     await connectToDatabase()
     
     // Fetch products with images
-    const products = await Product.find({}, '_id image title brand category').lean()
+    const products = await Product.find({}, '_id slug image title brand category').lean()
 
     const sitemap = generateImageSiteMap(products)
 

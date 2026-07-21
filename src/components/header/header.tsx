@@ -312,40 +312,119 @@ const Header: FC = () => {
             </Box>
             <Box sx={{ width: 40 }} /> {/* Spacing spacer to balance flex box */}
 
-            {/* Mobile Navigation Drawer */}
+            {/* Mobile Navigation Drawer with Overlay */}
             {visibleMenu && (
-              <Box
-                sx={{
-                  py: 3,
-                  px: { xs: 2, sm: 4 },
-                  backgroundColor: 'background.paper',
-                  zIndex: 'appBar',
-                  position: 'fixed',
-                  height: '100dvh',
-                  width: '100%',
-                  top: 0,
-                  left: 0,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  overflowY: 'auto',
-                }}
-              >
-                <IconButton
-                  sx={{
-                    position: 'absolute',
-                    top: 12,
-                    right: 12,
-                  }}
+              <>
+                {/* Backdrop Overlay */}
+                <Box
                   onClick={() => setVisibleMenu(false)}
+                  sx={{
+                    position: 'fixed',
+                    inset: 0,
+                    backgroundColor: 'rgba(2, 6, 23, 0.4)',
+                    backdropFilter: 'blur(6px)',
+                    zIndex: 9999,
+                    animation: 'fadeIn 0.3s ease',
+                    '@keyframes fadeIn': {
+                      from: { opacity: 0 },
+                      to: { opacity: 1 }
+                    }
+                  }}
+                />
+                
+                {/* Drawer Container */}
+                <Box
+                  sx={{
+                    position: 'fixed',
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: '85%',
+                    maxWidth: 340,
+                    backgroundColor: 'background.paper',
+                    zIndex: 10000,
+                    boxShadow: '-8px 0 32px rgba(2, 6, 23, 0.2)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    animation: 'slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                    '@keyframes slideIn': {
+                      from: { transform: 'translateX(100%)' },
+                      to: { transform: 'translateX(0)' }
+                    }
+                  }}
                 >
-                  <Close />
-                </IconButton>
-                <Box sx={{ mb: 2.5, mt: 1 }}>
-                  <Logo isScrolled={true} />
+                  {/* Drawer Header */}
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2.5, borderBottom: '1px solid', borderColor: 'divider' }}>
+                    <Logo isScrolled={true} />
+                    <IconButton 
+                      onClick={() => setVisibleMenu(false)}
+                      sx={{ 
+                        border: '1px solid', 
+                        borderColor: 'divider', 
+                        borderRadius: 1, 
+                        p: 0.75,
+                        '&:hover': { bgcolor: 'rgba(0,0,0,0.03)' }
+                      }}
+                    >
+                      <Close size={20} />
+                    </IconButton>
+                  </Box>
+
+                  {/* Navigation Links Area */}
+                  <Box sx={{ flex: 1, overflowY: 'auto', py: 3, px: 2 }}>
+                    <Navigation isScrolled={true} items={links} onNavigate={() => setVisibleMenu(false)} />
+                  </Box>
+
+                  {/* Drawer Footer (Contacts & Socials) */}
+                  <Box sx={{ p: 3, borderTop: '1px solid', borderColor: 'divider', bgcolor: 'rgba(0,0,0,0.01)' }}>
+                    <Typography sx={{ fontFamily: 'Inter, monospace', fontSize: '0.68rem', fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', letterSpacing: 1, mb: 1.5 }}>
+                      Connect With Us
+                    </Typography>
+                    
+                    {/* Social Buttons */}
+                    <Box sx={{ display: 'flex', gap: 1.5, mb: 3 }}>
+                      <IconButton 
+                        component="a" 
+                        href="https://www.ebay.com/usr/Sea Duck_marine" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="small"
+                        sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1.5, p: 0.75, '&:hover': { bgcolor: 'rgba(0,0,0,0.04)' } }}
+                      >
+                        <img src="/images/ebay.png" alt="eBay" style={{ height: '20px', width: '20px', objectFit: 'contain' }} />
+                      </IconButton>
+                      <IconButton 
+                        component="a" 
+                        href="https://www.linkedin.com/in/Sea Duck-marine-25120b335/" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="small"
+                        sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1.5, p: 0.75, color: '#0A66C2', '&:hover': { bgcolor: 'rgba(10, 102, 194, 0.05)' } }}
+                      >
+                        <LinkedIn fontSize="small" />
+                      </IconButton>
+                      <IconButton 
+                        component="a" 
+                        href="https://wa.me/918401303078" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="small"
+                        sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1.5, p: 0.75, color: '#25D366', '&:hover': { bgcolor: 'rgba(37, 211, 102, 0.05)' } }}
+                      >
+                        <WhatsApp fontSize="small" />
+                      </IconButton>
+                    </Box>
+
+                    {/* Quick Contacts */}
+                    <Typography variant="caption" display="block" sx={{ color: 'text.secondary', fontWeight: 500, mb: 0.5 }}>
+                      Email: info@seaduckmarine.com
+                    </Typography>
+                    <Typography variant="caption" display="block" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+                      Phone: +91 84013 03078
+                    </Typography>
+                  </Box>
                 </Box>
-                <Navigation isScrolled={true} items={links} onNavigate={() => setVisibleMenu(false)} />
-              </Box>
+              </>
             )}
           </Box>
         )}

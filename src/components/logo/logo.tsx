@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Logo: FC<Props> = ({ onClick, isScrolled, variant = 'primary' }) => {
-  const logoWidth = { xs: isScrolled ? 90 : 110, sm: isScrolled ? 110 : 130, md: isScrolled ? 130 : 160 }
+  const logoWidth = { xs: isScrolled ? 110 : 135, sm: isScrolled ? 130 : 155, md: isScrolled ? 145 : 180 }
 
   return (
     <Box onClick={onClick} sx={{ 
@@ -25,7 +25,7 @@ const Logo: FC<Props> = ({ onClick, isScrolled, variant = 'primary' }) => {
           display: 'block',
           width: logoWidth,
           height: 'auto',
-          maxHeight: { xs: 90, sm: 100, md: 120 },
+          maxHeight: { xs: 110, sm: 120, md: 140 },
           objectFit: 'contain',
           transition: 'all 0.3s ease-in-out',
         }}

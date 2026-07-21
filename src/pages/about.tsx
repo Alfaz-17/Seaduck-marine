@@ -207,51 +207,75 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
         </Container>
       </Box>
 
-      {/* SECTION 2: OUR STORY & MISSION & VISION */}
-      <Box id="our-story" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#0B1018', color: 'common.white' }}>
+      {/* SECTION 2: WHY CHOOSE US */}
+      <Box id="why-choose" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#0B1018' }}>
         <Container maxWidth="lg">
-          <Grid container spacing={{ xs: 5, md: 8 }} alignItems="center" direction="row-reverse">
-            <Grid item xs={12} md={6}>
-              <Box 
-                sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)', height: { xs: 300, md: 450 }, cursor: 'pointer', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.02)' } }}
-                onClick={() => setLightboxImage('/images/about/about_workshop.png')}
-              >
-                <Image src="/images/about/about_workshop.png" alt="Our Story" layout="fill" objectFit="cover" />
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, fontWeight: 700, mb: 3 }}>
-                Our Story
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mb: 2 }}>
+              <Box sx={{ width: 24, height: 2, bgcolor: 'secondary.main' }} />
+              <Typography variant="caption" sx={{ color: 'secondary.main', fontFamily: 'Inter, monospace', fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase' }}>
+                Our Advantages
               </Typography>
-              <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
-                Founded in 2009 by Mr. Umar Saiyad & Mr. Hanif Saiyad, Sea Duck Marine Service started as a dedicated marine equipment and radar supplier. Driven by our core values of honesty, hard work, and technical excellence, we have grown into a leading marine engineering and ship spare parts partner. Today, we offer complete onboard repair services, machinery maintenance, and customized engineering solutions for vessels of all types.
-              </Typography>
-              <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', lineHeight: 1.8, mb: 4 }}>
-                For over 15 years, we have built a strong reputation for providing genuine and OEM marine spares, marine automation systems, and dependable maintenance support. Our experienced marine engineering team understands the operational challenges of the maritime industry, working closely with clients to improve vessel performance and reduce operational costs.
-              </Typography>
-              
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 4 }}>
-                <Box sx={{ borderLeft: '4px solid #0EA5E9', pl: 3, py: 0.5 }}>
-                  <Typography variant="h5" sx={{ fontWeight: 600, mb: 1, color: 'secondary.main', fontSize: '1.25rem' }}>Our Mission</Typography>
-                  <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.98rem', lineHeight: 1.6 }}>
-                    To deliver high-quality marine products and professional engineering services that ensure safe, efficient, and uninterrupted vessel operations while building long-term relationships through trust, integrity, and customer satisfaction.
-                  </Typography>
+              <Box sx={{ width: 24, height: 2, bgcolor: 'secondary.main' }} />
+            </Box>
+            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '2.8rem' }, fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, color: 'common.white', mb: 3 }}>
+              Why Choose Seaduck Marine Service?
+            </Typography>
+          </Box>
+
+          <Grid container spacing={{ xs: 2, md: 4 }}>
+            {whyChooseItems.map((item, index) => (
+              <Grid item xs={6} sm={6} key={index}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  alignItems: { xs: 'flex-start', sm: 'stretch' },
+                  gap: { xs: 2, sm: 3 }, 
+                  p: { xs: 2.25, md: 3.5 }, 
+                  backgroundColor: 'rgba(255, 255, 255, 0.02)', 
+                  borderRadius: 2, 
+                  border: '1px solid',
+                  borderColor: 'rgba(255, 255, 255, 0.07)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+                  height: '100%',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: '0 12px 30px rgba(0, 0, 0, 0.35)',
+                    borderColor: 'secondary.main',
+                    backgroundColor: 'rgba(14, 165, 233, 0.04)',
+                    transform: 'translateY(-2px)'
+                  }
+                }}>
+                  <Box sx={{ flexShrink: 0 }}>
+                    <Box sx={{ 
+                      width: { xs: 42, md: 48 }, 
+                      height: { xs: 42, md: 48 }, 
+                      borderRadius: '50%', 
+                      backgroundColor: 'rgba(14, 165, 233, 0.15)', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center' 
+                    }}>
+                      {React.cloneElement(item.icon, { sx: { fontSize: { xs: 22, md: 32 } } })}
+                    </Box>
+                  </Box>
+                  <Box>
+                    <Typography variant="h5" sx={{ fontSize: { xs: '0.92rem', md: '1.15rem' }, fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, color: 'common.white', mb: { xs: 1, md: 1 }, lineHeight: 1.3 }}>
+                      {item.title}
+                    </Typography>
+                    <Typography sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.95rem' }, lineHeight: 1.5 }}>
+                      {item.description}
+                    </Typography>
+                  </Box>
                 </Box>
-                
-                <Box sx={{ borderLeft: '4px solid #0EA5E9', pl: 3, py: 0.5 }}>
-                  <Typography variant="h5" sx={{ fontWeight: 600, mb: 1, color: 'secondary.main', fontSize: '1.25rem' }}>Our Vision</Typography>
-                  <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.98rem', lineHeight: 1.6 }}>
-                    To become a globally recognized marine engineering and ship spare parts partner, known for technical excellence, dependable service, and innovative maritime solutions.
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
+              </Grid>
+            ))}
           </Grid>
         </Container>
       </Box>
 
       {/* SECTION 3: OUR EXPERTISE & SERVICES */}
-      <Box id="expertise" sx={{ py: { xs: 8, md: 12 }, backgroundColor: 'background.paper' }}>
+      <Box id="expertise" sx={{ py: { xs: 8, md: 12 }, backgroundColor: 'background.default' }}>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mb: 2 }}>
@@ -326,69 +350,45 @@ const AboutUs: NextPageWithLayout<AboutUsProps> = ({ brands, teamMembers }) => {
         </Container>
       </Box>
 
-      {/* SECTION 4: WHY CHOOSE US */}
-      <Box id="why-choose" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#0B1018' }}>
+      {/* SECTION 4: OUR STORY & MISSION & VISION */}
+      <Box id="our-story" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#0B1018', color: 'common.white' }}>
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mb: 2 }}>
-              <Box sx={{ width: 24, height: 2, bgcolor: 'secondary.main' }} />
-              <Typography variant="caption" sx={{ color: 'secondary.main', fontFamily: 'Inter, monospace', fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase' }}>
-                Our Advantages
+          <Grid container spacing={{ xs: 5, md: 8 }} alignItems="center" direction="row-reverse">
+            <Grid item xs={12} md={6}>
+              <Box 
+                sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)', height: { xs: 300, md: 450 }, cursor: 'pointer', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.02)' } }}
+                onClick={() => setLightboxImage('/images/about/about_workshop.png')}
+              >
+                <Image src="/images/about/about_workshop.png" alt="Our Story" layout="fill" objectFit="cover" />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, fontWeight: 700, mb: 3 }}>
+                Our Story
               </Typography>
-              <Box sx={{ width: 24, height: 2, bgcolor: 'secondary.main' }} />
-            </Box>
-            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '2.8rem' }, fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, color: 'common.white', mb: 3 }}>
-              Why Choose Seaduck Marine Service?
-            </Typography>
-          </Box>
-
-          <Grid container spacing={{ xs: 2, md: 4 }}>
-            {whyChooseItems.map((item, index) => (
-              <Grid item xs={6} sm={6} key={index}>
-                <Box sx={{ 
-                  display: 'flex', 
-                  flexDirection: { xs: 'column', sm: 'row' },
-                  alignItems: { xs: 'flex-start', sm: 'stretch' },
-                  gap: { xs: 2, sm: 3 }, 
-                  p: { xs: 2.25, md: 3.5 }, 
-                  backgroundColor: 'rgba(255, 255, 255, 0.02)', 
-                  borderRadius: 2, 
-                  border: '1px solid',
-                  borderColor: 'rgba(255, 255, 255, 0.07)',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
-                  height: '100%',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    boxShadow: '0 12px 30px rgba(0, 0, 0, 0.35)',
-                    borderColor: 'secondary.main',
-                    backgroundColor: 'rgba(14, 165, 233, 0.04)',
-                    transform: 'translateY(-2px)'
-                  }
-                }}>
-                  <Box sx={{ flexShrink: 0 }}>
-                    <Box sx={{ 
-                      width: { xs: 42, md: 48 }, 
-                      height: { xs: 42, md: 48 }, 
-                      borderRadius: '50%', 
-                      backgroundColor: 'rgba(14, 165, 233, 0.15)', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center' 
-                    }}>
-                      {React.cloneElement(item.icon, { sx: { fontSize: { xs: 22, md: 32 } } })}
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Typography variant="h5" sx={{ fontSize: { xs: '0.92rem', md: '1.15rem' }, fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, color: 'common.white', mb: { xs: 1, md: 1 }, lineHeight: 1.3 }}>
-                      {item.title}
-                    </Typography>
-                    <Typography sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.95rem' }, lineHeight: 1.5 }}>
-                      {item.description}
-                    </Typography>
-                  </Box>
+              <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                Founded in 2009 by Mr. Umar Saiyad & Mr. Hanif Saiyad, Sea Duck Marine Service started as a dedicated marine equipment and radar supplier. Driven by our core values of honesty, hard work, and technical excellence, we have grown into a leading marine engineering and ship spare parts partner. Today, we offer complete onboard repair services, machinery maintenance, and customized engineering solutions for vessels of all types.
+              </Typography>
+              <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', lineHeight: 1.8, mb: 4 }}>
+                For over 15 years, we have built a strong reputation for providing genuine and OEM marine spares, marine automation systems, and dependable maintenance support. Our experienced marine engineering team understands the operational challenges of the maritime industry, working closely with clients to improve vessel performance and reduce operational costs.
+              </Typography>
+              
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 4 }}>
+                <Box sx={{ borderLeft: '4px solid #0EA5E9', pl: 3, py: 0.5 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 600, mb: 1, color: 'secondary.main', fontSize: '1.25rem' }}>Our Mission</Typography>
+                  <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.98rem', lineHeight: 1.6 }}>
+                    To deliver high-quality marine products and professional engineering services that ensure safe, efficient, and uninterrupted vessel operations while building long-term relationships through trust, integrity, and customer satisfaction.
+                  </Typography>
                 </Box>
-              </Grid>
-            ))}
+                
+                <Box sx={{ borderLeft: '4px solid #0EA5E9', pl: 3, py: 0.5 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 600, mb: 1, color: 'secondary.main', fontSize: '1.25rem' }}>Our Vision</Typography>
+                  <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.98rem', lineHeight: 1.6 }}>
+                    To become a globally recognized marine engineering and ship spare parts partner, known for technical excellence, dependable service, and innovative maritime solutions.
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
           </Grid>
         </Container>
       </Box>

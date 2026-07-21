@@ -22,7 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       { name: 'Fire Alarm System', mainCategory: 'Automation' },
       // Communication / Spares
       { name: 'Lubricating Oil', mainCategory: 'Communication' },
-      { name: 'Ship Spares', mainCategory: 'Communication' }
+      { name: 'Ship Spares', mainCategory: 'Communication' },
+      { name: 'Engine Spares', mainCategory: 'Communication' }
     ]
 
     for (const cat of categoriesToSeed) {
@@ -43,7 +44,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       { name: 'Shell', description: 'Marine-grade lubricating oils' },
       { name: 'Castrol Marine', description: 'Cylinder and system lubricants' },
       { name: 'Naniwa', description: 'Centrifugal shipboard pumps' },
-      { name: 'Universal Marine', description: 'Deck items and hatch packings' }
+      { name: 'Universal Marine', description: 'Deck items and hatch packings' },
+      { name: 'MAN Energy Solutions', description: 'Leading manufacturer of large-bore diesel engines' },
+      { name: 'Wärtsilä', description: 'Global leader in innovative technologies and lifecycle solutions for marine' },
+      { name: 'Sulzer', description: 'Industrial engineering and marine propulsion spares' },
+      { name: 'Mitsubishi', description: 'Heavy machinery and marine engine spares' },
+      { name: 'Yanmar', description: 'Marine propulsion engines and generator spares' }
     ]
 
     for (const brand of brandsToSeed) {
@@ -203,6 +209,101 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         specifications: {
           "Profile Type": "Square Solid",
           "Dimensions": "71mm x 40mm"
+        }
+      },
+      {
+        title: "MAN B&W L70MC Cylinder Liner",
+        slug: "man-bw-l70mc-cylinder-liner",
+        description: "Reconditioned cylinder liner for MAN B&W L70MC main propulsion engines. Calibrated and certified for reuse with wear measurements well within limits.",
+        category: categoryMap['Engine Spares']?._id,
+        brand: brandMap['MAN Energy Solutions']?._id,
+        brandName: 'MAN Energy Solutions',
+        price: 0,
+        availability: 'in-stock' as const,
+        featured: true,
+        image: '/Products/main-engine1.jpeg',
+        images: ['/Products/main-engine1.jpeg'],
+        keywords: ['cylinder liner', 'man bw', 'engine spares'],
+        specifications: {
+          "Engine Model": "L70MC",
+          "Bore Size": "700 mm",
+          "Condition": "Reconditioned & Certified"
+        }
+      },
+      {
+        title: "Wärtsilä RT-Flex50 Piston Crown",
+        slug: "wartsila-rt-flex50-piston-crown",
+        description: "High-temperature resistant steel piston crown for Wärtsilä RT-Flex50 diesel engines. Ring grooves chrome-plated and checked with NDT dye penetrant test.",
+        category: categoryMap['Engine Spares']?._id,
+        brand: brandMap['Wärtsilä']?._id,
+        brandName: 'Wärtsilä',
+        price: 0,
+        availability: 'in-stock' as const,
+        featured: true,
+        image: '/Products/main-engine2.jpeg',
+        images: ['/Products/main-engine2.jpeg'],
+        keywords: ['piston crown', 'wartsila', 'engine spares'],
+        specifications: {
+          "Engine Model": "RT-Flex50",
+          "Material": "Forged Steel",
+          "Condition": "Ultrasonically Tested"
+        }
+      },
+      {
+        title: "Sulzer RTA58 Fuel Injector Valve",
+        slug: "sulzer-rta58-fuel-injector",
+        description: "Fully overhauled main engine fuel injection valve assembly for Sulzer RTA58 series. Fitted with new nozzles, pressure-tested and calibrated to OEM cracking pressure.",
+        category: categoryMap['Engine Spares']?._id,
+        brand: brandMap['Sulzer']?._id,
+        brandName: 'Sulzer',
+        price: 0,
+        availability: 'in-stock' as const,
+        featured: true,
+        image: '/Products/main-engine3.jpeg',
+        images: ['/Products/main-engine3.jpeg'],
+        keywords: ['fuel injector', 'sulzer', 'engine spares'],
+        specifications: {
+          "Engine Model": "RTA58",
+          "Pressure Rating": "320 bar",
+          "Nozzle Condition": "New OEM Spec"
+        }
+      },
+      {
+        title: "Mitsubishi UEC52LA Exhaust Valve Spindle",
+        slug: "mitsubishi-uec52la-exhaust-valve",
+        description: "Exhaust valve spindle made from high-strength Nimonic alloy for Mitsubishi UEC52LA diesel engines. Reconditioned, ground, and checked for runout.",
+        category: categoryMap['Engine Spares']?._id,
+        brand: brandMap['Mitsubishi']?._id,
+        brandName: 'Mitsubishi',
+        price: 0,
+        availability: 'in-stock' as const,
+        featured: false,
+        image: '/Products/main-engine4.jpeg',
+        images: ['/Products/main-engine4.jpeg'],
+        keywords: ['exhaust valve', 'mitsubishi', 'engine spares'],
+        specifications: {
+          "Engine Model": "UEC52LA",
+          "Material": "Nimonic 80A",
+          "Condition": "Ground & Polished"
+        }
+      },
+      {
+        title: "Yanmar 6EY18AL Cylinder Head Assembly",
+        slug: "yanmar-6ey18al-cylinder-head",
+        description: "Complete auxiliary/main engine cylinder head assembly for Yanmar 6EY18AL. Overhauled with new valves, guides, springs, and pressure tested at 10 bar.",
+        category: categoryMap['Engine Spares']?._id,
+        brand: brandMap['Yanmar']?._id,
+        brandName: 'Yanmar',
+        price: 0,
+        availability: 'in-stock' as const,
+        featured: true,
+        image: '/Products/main-engine5.jpeg',
+        images: ['/Products/main-engine5.jpeg'],
+        keywords: ['cylinder head', 'yanmar', 'engine spares'],
+        specifications: {
+          "Engine Model": "6EY18AL",
+          "Pressure Test": "10 bar (Hydraulic)",
+          "Condition": "Fully Overhauled"
         }
       }
     ]

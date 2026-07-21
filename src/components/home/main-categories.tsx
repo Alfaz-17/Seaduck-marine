@@ -51,7 +51,7 @@ const CategoryCard = ({ category }: { category: any }) => (
         overflow: 'hidden',
         border: '1px solid',
         borderColor: 'divider',
-        height: { xs: 300, md: 360 },
+        height: { xs: 190, md: 280 },
         alignItems: 'flex-end',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
@@ -112,12 +112,9 @@ const CategoryCard = ({ category }: { category: any }) => (
           transition: 'opacity 0.4s ease',
         }}
       />
-      <Box sx={{ position: 'relative', zIndex: 1, p: { xs: 3, md: 4 }, width: '100%' }}>
-        <Typography variant="h4" component="h3" sx={{ color: 'common.white', fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, mb: 1, fontSize: { xs: '1.3rem', md: '1.4rem' } }}>
+      <Box sx={{ position: 'relative', zIndex: 1, p: { xs: 2, md: 4 }, width: '100%' }}>
+        <Typography variant="h4" component="h3" sx={{ color: 'common.white', fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, mb: { xs: 1, md: 2 }, fontSize: { xs: '0.95rem', md: '1.35rem' } }}>
           {category.name}
-        </Typography>
-        <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', mb: 2, lineHeight: 1.6 }}>
-          {category.description}
         </Typography>
         <Box 
           className="explore-btn"
@@ -130,12 +127,13 @@ const CategoryCard = ({ category }: { category: any }) => (
             fontFamily: 'Inter, monospace',
             textTransform: 'uppercase',
             letterSpacing: 1,
+            fontSize: { xs: '0.65rem', md: '0.75rem' },
             opacity: { xs: 1, md: 0 },
             transform: { xs: 'translateY(0)', md: 'translateY(10px)' },
             transition: 'all 0.4s ease',
           }}
         >
-          VIEW_PRODUCTS <ArrowForwardIcon fontSize="small" />
+          VIEW_PRODUCTS <ArrowForwardIcon sx={{ fontSize: { xs: 13, md: 16 } }} />
         </Box>
       </Box>
     </Box>
@@ -158,9 +156,9 @@ const MainCategories: FC = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
           {categories.map((category, idx) => (
-            <Grid item xs={12} sm={6} md={4} key={idx}>
+            <Grid item xs={6} sm={6} md={4} key={idx}>
               <CategoryCard category={category} />
             </Grid>
           ))}

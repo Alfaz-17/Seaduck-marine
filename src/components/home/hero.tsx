@@ -58,8 +58,8 @@ interface HomeHeroProps {
 }
 
 const HomeHero: FC<HomeHeroProps> = ({ data }) => {
-  const headline = data?.heroHeadline || "Marine Radars, Automation & Lubricating Oils"
-  const subtitle = data?.heroSubtitle || "Trusted B2B distributor and supplier of genuine ship spares, reconditioned automation panels, and marine engine consumables in Bhavnagar since 2009."
+  const headline = data?.heroHeadline || "Marine Supply, Service, Repair & Automation"
+  const subtitle = data?.heroSubtitle || "Seaduck Marine Service (S.D.M.S.) is a trusted marine engineering company specializing in the global supply, service, repair, maintenance, and technical solutions for commercial ships and offshore vessels since 2009."
   const stats = data?.heroStats || defaultExps
 
   return (

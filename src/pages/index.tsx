@@ -1,24 +1,21 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
 import { GetStaticProps } from 'next'
 import { NextPageWithLayout } from '@/interfaces/layout'
 import { MainLayout } from '@/components/layout'
 import { connectToDatabase, disconnectFromDatabase } from '@/lib/db'
 import { Product, Brand } from '@/lib/models'
 import { client } from '@/lib/sanity'
-
 import { SEO } from '@/components/seo/SEO'
 
-const DynamicHomeHero = dynamic(() => import('@/components/home/hero'))
-const DynamicMainCategories = dynamic(() => import('@/components/home/main-categories'))
-const DynamicStatsBand = dynamic(() => import('@/components/home/stats'))
-const DynamicAboutSection = dynamic(() => import('@/components/home/about-section'))
-const DynamicBrandsSection = dynamic(() => import('@/components/home/brands-section'))
-const DynamicKeyFacts = dynamic(() => import('@/components/home/key-facts'))
-const DynamicFeaturedProducts = dynamic(() => import('@/components/home/featured-products'))
-const DynamicCustomerReviews = dynamic(() => import('@/components/home/customer-reviews'))
-const DynamicWhyChoose = dynamic(() => import('@/components/home/why-choose'))
-const DynamicCtaBand = dynamic(() => import('@/components/home/cta-band'))
+import {
+  HomeHero,
+  MainCategories,
+  StatsBand,
+  FeaturedProducts,
+  WhyChoose,
+  BrandsSection,
+  CtaBand
+} from '@/components/home'
 
 interface HomeProps {
   featuredProducts: any[]
@@ -34,13 +31,13 @@ const Home: NextPageWithLayout<HomeProps> = ({ featuredProducts, brands, homePag
         description="Trusted supplier of marine radar, automation, lubricants & ship spares in Bhavnagar, Gujarat since 2009. Get a quote today."
         canonicalUrl="/"
       />
-      <DynamicHomeHero data={homePageData} />
-      <DynamicMainCategories />
-      <DynamicFeaturedProducts products={featuredProducts} />
-      <DynamicWhyChoose />
-      <DynamicStatsBand data={homePageData} />
-      <DynamicBrandsSection brands={brands} />
-      <DynamicCtaBand />
+      <HomeHero data={homePageData} />
+      <MainCategories />
+      <StatsBand data={homePageData} />
+      <FeaturedProducts products={featuredProducts} />
+      <WhyChoose />
+      <BrandsSection brands={brands} />
+      <CtaBand />
     </>
   )
 }

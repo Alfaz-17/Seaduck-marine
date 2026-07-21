@@ -5,7 +5,6 @@ import { AppInitialProps } from 'next/app'
 import { EmotionCache } from '@emotion/cache'
 import { createEmotionCache } from '@/utils'
 import createEmotionServer from '@emotion/server/create-instance'
-import { AppContextType, AppPropsType } from 'next/dist/shared/lib/utils'
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
 
 interface DocumentProps {
@@ -79,9 +78,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
     originalRenderPage({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      enhanceApp: (
-        App: NextComponentType<AppContextType, AppInitialProps, AppPropsType & { emotionCache: EmotionCache }>
-      ) =>
+      enhanceApp: (App: any) =>
         function EnhanceApp(props) {
           // console.log('props ->', props)
           return <App emotionCache={cache} {...props} />
